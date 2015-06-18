@@ -12,10 +12,8 @@ public class StudentDAOImpl implements StudentDAO {
 	private Connection connection;
 	public StudentDAOImpl(){
     	connection = ConnectionFactory.getConnection();
-    			
     }
 	public void insertRecord(StudentRegistrationEntity studregent) {
-		
 		String query = "INSERT INTO tbl_studregdet(clm_grpid,clm_regdate,clm_tech,clm_teamsz,clm_dept,clm_studstat) VALUES(?,?,?,?,?,?)";
 		try{
 			PreparedStatement preparedStatement = connection.prepareStatement(query);
@@ -25,7 +23,6 @@ public class StudentDAOImpl implements StudentDAO {
 			preparedStatement.setInt(4,studregent.getTeamsz());
 			preparedStatement.setString(5, studregent.getDept());
 			preparedStatement.setString(6, studregent.getStudstat());
-			
 			int status = preparedStatement.executeUpdate();
 			if(status > 0){
 				System.out.println("Record inserted successfully");
@@ -33,9 +30,6 @@ public class StudentDAOImpl implements StudentDAO {
 		}catch(SQLException sqe){
 			System.out.println("In StudentRegistrationDAOimpl in insertRecord:"+sqe.getMessage());
 		}
-		
-		
-		
 	}
 
 	public void updateRecord() {
