@@ -18,6 +18,7 @@ public class TestServlet extends HttpServlet {
     public TestServlet() {
         super();
         // TODO Auto-generated constructor stub
+    System.out.println("Hi");
     }
 
 	/**
