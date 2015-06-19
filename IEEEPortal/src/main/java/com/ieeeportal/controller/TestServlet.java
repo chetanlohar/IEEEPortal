@@ -16,9 +16,11 @@ public class TestServlet extends HttpServlet {
     }
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("caught by testServlet... :-) congo man");
+		response.sendRedirect(request.getContextPath()+"/EmployeeRegistration.jsp");
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		
+		
 	}
 
 }
