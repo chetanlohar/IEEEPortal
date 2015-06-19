@@ -20,6 +20,15 @@
 		<servlet-name>EmployeeRegistrationController</servlet-name>
 		<servlet-class>com.ieeeportal.controller.EmployeeRegistrationController</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>ProjectListServlet</servlet-name>
+		
+		<servlet-class>com.ieeeportal.controller.ProjectListServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>OpenFileServlet</servlet-name>
+		<servlet-class>com.ieeeportal.controller.OpenFileServlet</servlet-class>
+	</servlet>
 	<servlet-mapping>
 		<servlet-name>EmployeeRegistration</servlet-name>
 		<url-pattern>/EmployeeRegistration</url-pattern>
@@ -27,6 +36,14 @@
 	<servlet-mapping>
 		<servlet-name>EmployeeRegistrationController</servlet-name>
 		<url-pattern>/EmployeeRegistrationController</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ProjectListServlet</servlet-name>
+		<url-pattern>/ProjectListServlet</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>OpenFileServlet</servlet-name>
+		<url-pattern>/OpenFileServlet</url-pattern>
 	</servlet-mapping>
 	<welcome-file-list>
 		<welcome-file>/WEB-INF/index.jsp</welcome-file>
