@@ -10,11 +10,21 @@
 		<description></description>
 		<servlet-class>com.ieeeportal.controller.TestServlet</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>StudentEnquiryController</servlet-name>
+		<display-name>StudentEnquiryController</display-name>
+		<description></description>
+		<servlet-class>com.ieeeportal.controller.StudentEnquiryController</servlet-class>
+	</servlet>
 	<servlet-mapping>
 		<servlet-name>TestServlet</servlet-name>
 		<url-pattern>/TestServlet</url-pattern>
 	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>StudentEnquiryController</servlet-name>
+		<url-pattern>/StudentEnquiryController</url-pattern>
+	</servlet-mapping>
 	<welcome-file-list>
-		<welcome-file>/WEB-INF/index.jsp</welcome-file>
+		<welcome-file>/WEB-INF/jsp/student/studentEnquiry.jsp</welcome-file>
 	</welcome-file-list>
 </web-app>
