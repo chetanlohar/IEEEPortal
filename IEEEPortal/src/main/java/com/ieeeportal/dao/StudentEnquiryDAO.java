@@ -1,9 +1,22 @@
 package com.ieeeportal.dao;
 
-import com.ieeeportal.entity.StudentEnquiryEntity;
+import java.util.List;
+
+import com.ieeeportal.entity.CityEntity;
+import com.ieeeportal.entity.CollegeEntity;
+import com.ieeeportal.entity.DomainEntity;
+import com.ieeeportal.entity.ReferenceEntity;
+import com.ieeeportal.entity.StudentEntity;
 
 public interface StudentEnquiryDAO {
 
+	
 	//this method takes studentenquiryentity as input
-	public  void insertEnquiryRecord(StudentEnquiryEntity enquiryEntity);
+	public  String insertEnquiryRecord(StudentEntity enquiryEntity);
+	public List<CityEntity> citiesList();
+	public List<DomainEntity> domainList();
+	public List<CollegeEntity> collegeList();
+	public List<ReferenceEntity> referenceList();
+	
+	
 }

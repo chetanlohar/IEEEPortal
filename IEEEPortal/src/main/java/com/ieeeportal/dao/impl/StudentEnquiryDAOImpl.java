@@ -1,52 +1,329 @@
 package com.ieeeportal.dao.impl;
 
+import java.sql.Array;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
 
 import com.ieeeportal.dao.StudentEnquiryDAO;
-import com.ieeeportal.entity.StudentEnquiryEntity;
+import com.ieeeportal.entity.CityEntity;
+import com.ieeeportal.entity.CollegeEntity;
+import com.ieeeportal.entity.DomainEntity;
+import com.ieeeportal.entity.ReferenceEntity;
+import com.ieeeportal.entity.StudentEntity;
+import com.ieeeportal.service.impl.StudentEnquiryServiceImpl;
 import com.ieeeportal.util.ConnectionFactory;
 
-public class StudentEnquiryDAOImpl implements StudentEnquiryDAO{
+public class StudentEnquiryDAOImpl implements StudentEnquiryDAO {
 
-	//for inserting student  enquiry records into database
-	Connection connection;
-	
-	public void insertEnquiryRecord(StudentEnquiryEntity enquiryEntity) {
+	// for inserting student enquiry records into database
+	Connection connection = null;
+    public StudentEnquiryDAOImpl(){
+    	connection = ConnectionFactory.getConnection();
+    }
+	public String insertEnquiryRecord(StudentEntity enquiryEntity) {
 		// TODO Auto-generated method stub
+
+		System.out.println(" hi from insertEnquiryRecord()");
+
 		
-		System.out.println(" hi from vivek..");
 		
-		ConnectionFactory connectionFactory = null;
-		connection=connectionFactory.getConnection();
-		
-		PreparedStatement preparedStatement=null;
-		ResultSet resultSet=null;
-		
-		String query = "INSERT INTO tbl_enqdet(CLM_ENQDATE,CLM_TECH,CLM_TEAMSZ,CLM_DEPT,CLM_CLGID,CLM_DOMID,CLM_CITYID,CLM_REFID) VALUES(?,?,?,?,?,?,?,?)";
-		try{
-			preparedStatement = connection.prepareStatement(query);
-			preparedStatement.setString(1, enquiryEntity.getEnquiryDate());
-			preparedStatement.setString(2, enquiryEntity.getStudentTechnology());
-			preparedStatement.setInt(3,enquiryEntity.getStudentTeamsize());
-			preparedStatement.setString(4,enquiryEntity.getStudentDepartment());
-			preparedStatement.setInt(5,1);
-			preparedStatement.setInt(6,2);
-			preparedStatement.setInt(7,3);
-			preparedStatement.setInt(8,4);
-			
-			
-			
-			int status = preparedStatement.executeUpdate();
-			if(status > 0){
-				System.out.println("Record inserted successfully");
+
+		PreparedStatement preparedStatement1 = null;
+		PreparedStatement preparedStatement2 = null;
+		PreparedStatement preparedStatement3 = null;
+		PreparedStatement preparedStatement4 = null;
+		PreparedStatement preparedStatement5 = null;
+		PreparedStatement preparedStatement6 = null;
+		PreparedStatement preparedStatement7 = null;
+		PreparedStatement preparedStatement8 = null;
+		PreparedStatement preparedStatement9 = null;
+
+		ResultSet resultSet1 = null;
+		ResultSet resultSet2 = null;
+		ResultSet resultSet3 = null;
+		ResultSet resultSet4 = null;
+		ResultSet resultSet5 = null;
+		ResultSet resultSet6 = null;
+
+		int collegeId = 0;
+		int domainId = 0;
+		int cityId = 0;
+		int referenceId = 0;
+		int enquiryId = 0;
+		int contID = 0;
+
+		// /String query =
+		// "INSERT INTO tbl_enqdet(CLM_ENQDATE,CLM_TECH,CLM_TEAMSZ,CLM_DEPT) VALUES(?,?,?,?)";
+
+		int status1 = 0, status2 = 0, status3 = 0;
+
+		String query1 = "INSERT INTO tbl_contmst(CLM_PHNO,CLM_EMLID)values(?,?)";
+		String query6 = "INSERT INTO tbl_enqdet (CLM_ENQDATE,CLM_TECH,CLM_REFID,CLM_TEAMSZ,CLM_DEPT,CLM_CLGID,CLM_DOMID,CLM_CITYID) VALUES(?,?,?,?,?,?,?,?)";
+		String query7 = "SELECT CLM_CONTID from tbl_contmst ORDER BY CLM_CONTID DESC LIMIT 1";
+		String query8 = "SELECT clm_enqid FROM tbl_enqdet ORDER BY clm_enqid DESC LIMIT 1";
+		String query9 = "INSERT INTO tbl_enqcontdet(CLM_ENQNM,CLM_GENDER,CLM_ENQID) VALUES(?,?,?)";
+		String query10 = "INSERT INTO tbl_enqcontdet(CLM_CONTID,CLM_ENQNM,CLM_GENDER,CLM_ENQID) VALUES(?,?,?,?)";
+		List<Integer> listOfContId = new ArrayList<Integer>();
+
+		String[] contA = Arrays.copyOf(enquiryEntity.getStudentContactList()
+				.toArray(),
+				enquiryEntity.getStudentContactList().toArray().length,
+				String[].class);
+
+		String[] emailA = Arrays.copyOf(enquiryEntity.getStudentEmailList()
+				.toArray(),
+				enquiryEntity.getStudentEmailList().toArray().length,
+				String[].class);
+
+		String[] nameA = Arrays.copyOf(enquiryEntity.getStudentNameList()
+				.toArray(),
+				enquiryEntity.getStudentNameList().toArray().length,
+				String[].class);
+
+		String[] genderA = Arrays.copyOf(enquiryEntity.getStudentGenderList()
+				.toArray(),
+				enquiryEntity.getStudentGenderList().toArray().length,
+				String[].class);
+
+		Integer[] contIdA = (Integer[]) listOfContId
+				.toArray(new Integer[listOfContId.size()]);
+
+		try {
+				preparedStatement6 = connection.prepareStatement(query6);
+
+			preparedStatement6.setString(1, enquiryEntity.getEnquiryDate());
+			preparedStatement6.setString(2,
+					enquiryEntity.getStudentTechnology());
+			preparedStatement6.setInt(3, enquiryEntity.getStudentReferenceId());
+			preparedStatement6.setInt(4, enquiryEntity.getStudentTeamsize());
+			preparedStatement6.setString(5,
+					enquiryEntity.getStudentDepartment());
+			preparedStatement6.setInt(6, enquiryEntity.getStudentCollegeId());
+			preparedStatement6.setInt(7, enquiryEntity.getStudentDomainId());
+			preparedStatement6.setInt(8, enquiryEntity.getStudentCityId());
+
+			status2 = preparedStatement6.executeUpdate();
+
+			if (status2 > 0) {
+				preparedStatement1 = connection.prepareStatement(query1);
+
+				for (int i = 0; i < contA.length; i++) {
+
+					preparedStatement1.setString(1, contA[i]);
+					preparedStatement1.setString(2, emailA[i]);
+					status1 = preparedStatement1.executeUpdate();
+					if (status1 > 0) {
+						preparedStatement7 = connection
+								.prepareStatement(query7);
+						resultSet5 = preparedStatement7.executeQuery();
+						while (resultSet5.next()) {
+							contID = resultSet5.getInt(1);
+
+						}
+						preparedStatement8 = connection
+								.prepareStatement(query8);
+
+						resultSet6 = preparedStatement8.executeQuery();
+						while (resultSet6.next()) {
+							enquiryId = resultSet6.getInt(1);
+						}
+						PreparedStatement preparedStatement10 = connection
+								.prepareStatement(query10);
+						preparedStatement10.setInt(1, contID);
+						preparedStatement10.setString(2, nameA[i]);
+						preparedStatement10.setString(3, genderA[i]);
+						preparedStatement10.setInt(4, enquiryId);
+						status3 = preparedStatement10.executeUpdate();
+					}
+
+				}
 			}
-		}catch(Exception sqe){
-			System.out.println("In StudentRegistrationDAOimpl in insertRecord:"+sqe.getMessage());
+			if (status2 > 0) {
+
+				System.out.println("records inserted into enqDet");
+
+			}
+			if (status3 > 0) {
+
+				System.out.println("records inserted into enqDet");
+
+			}
+
+		} catch (Exception sqe) {
+			System.out.println("In StudentEnquiryDAOimpl in insertRecord:"+ sqe.getMessage());
+		}
+		return "inserted";
+
+	}
+
+	
+	//List Of Cities will be return in arraylist
+	
+	public List<CityEntity> citiesList() {
+		
+		System.out.println("Hii from citiesList() in DAOIMPL");
+		
+		List<CityEntity> citylist = new ArrayList<CityEntity>();
+		
+		
+		
+		PreparedStatement preparedStatement = null;
+		ResultSet resultset = null;
+		
+		String query = "SELECT * FROM tbl_citymst";
+		
+		try {
+		
+			preparedStatement = connection.prepareStatement(query);
+			resultset = preparedStatement.executeQuery();
+			
+			while(resultset.next()){
+				
+				CityEntity cities = new CityEntity();
+				cities.setCityId(resultset.getInt("CLM_CITYID"));
+				cities.setCityName(resultset.getString("CLM_CITYNM"));
+				
+				citylist.add(cities);
+			}
+		
+		
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return citylist;
+	}
+
+	
+	//List Of Domains will be return in arraylist
+	
+	public List<DomainEntity> domainList() {
+		
+		System.out.println("Hii from DomainLIst() from DAO");
+		
+		
+		PreparedStatement preparedstatement = null;
+		ResultSet resultset = null;
+		
+		
+		
+		List<DomainEntity> domainlist = new ArrayList<DomainEntity>();
+ 		
+		
+		
+		String query = "SELECT * FROM tbl_dommst";
+		
+		
+		try {
+			preparedstatement = connection.prepareStatement(query);
+			resultset = preparedstatement.executeQuery();
+		
+		while(resultset.next()){
+			
+			DomainEntity domains =  new DomainEntity();
+			
+			domains.setDomainId(resultset.getInt("CLM_DOMID"));
+			domains.setDomainName(resultset.getString("clm_DOMNM"));
+			
+			
+			domainlist.add(domains);
+		}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return domainlist;
+	}
+
+	
+
+	//List Of College will be return in arraylist
+	
+	public List<CollegeEntity> collegeList() {
+		
+		
+		PreparedStatement preparedstatement = null;
+		ResultSet resultset = null;
+		
+		List<CollegeEntity> colleges = new ArrayList<CollegeEntity>();
+				
+		
+		
+		String query = "SELECT * FROM tbl_clgmst";
+		try {
+			
+			preparedstatement = connection.prepareStatement(query);
+			
+		resultset = preparedstatement.executeQuery();
+		
+		while(resultset.next()){
+
+			CollegeEntity collegeEntity = new CollegeEntity();
+			
+			collegeEntity.setCollegeId(resultset.getInt("CLM_CLGID"));
+			collegeEntity.setCollegeName(resultset.getString("CLM_CLGNM"));
+			
+			colleges.add(collegeEntity);
+			
 		}
 		
 		
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		
+		return colleges;
+	}
+
+
+	public List<ReferenceEntity> referenceList() {
+		
+		
+		
+		PreparedStatement preparedstatement = null;
+		
+		ResultSet resultset = null;
+		List<ReferenceEntity> references = new ArrayList<ReferenceEntity>();
+
+		String query = "SELECT * FROM tbl_refmst";
+		
+		try {
+			
+			preparedstatement = connection.prepareStatement(query);
+			resultset = preparedstatement.executeQuery();
+			
+			
+			while(resultset.next()){
+				
+				ReferenceEntity referenceEntity = new ReferenceEntity();
+				
+				referenceEntity.setReferenceId(resultset.getInt("CLM_REFID"));
+				referenceEntity.setReferenceName(resultset.getString("CLM_REFNM"));
+				
+				references.add(referenceEntity);
+				
+			}
+			
+		
+		} catch (SQLException e) {
+		
+			e.printStackTrace();
+		}
+		
+		return references;
 	}
 
 }

@@ -1,0 +1,107 @@
+@CHARSET "ISO-8859-1";
+
+.header-contents{
+	height: 100px;
+	width: 100%;
+	background: #F6F6F6;
+	overflow: hidden;
+}
+.header-contents .logo{
+	float: left;
+}
+.header-contents .logo img{
+	margin-top: 10px;
+}
+.header-contents span{
+	width: 250px;
+	font-size:17px;
+padding-top: 45px;
+float: left;
+color: #5F80A8;
+}
+.containts{
+	height: auto;
+	width: 100%;
+	overflow:hidden;
+
+}
+.containts form{
+	height: auto;
+	width: 70%;
+	margin:10px auto;
+	background: #FFF none repeat scroll 0% 0%;
+box-shadow: 0px 9px 0px 0px #FFF, 0px -9px 0px 0px #FFF, 12px 0px 15px -4px rgba(100, 100, 100, 0.8), -12px 0px 15px -4px rgba(100, 100, 100, 0.8);
+}
+.containts form h1{
+	text-align: center;
+	font-size: 30px;
+	font-family: calibri;
+}
+.containts form div{
+	width: 50%;
+	height:30px;
+	margin:15px auto;
+	
+}
+.containts form label {
+	width: 130px;
+	float:left;
+	text-align:right;
+line-height: 30px;
+font-family: arial;
+font-size: 16px;
+}
+.containts form div input[type="text"]{
+	height: 23px;
+	width: 250px;
+	margin-left: 5px;
+}
+.containts form div select{
+	height: 30px;
+	width: 255px;
+	margin-left: 5px;
+}
+.containts input[type="button"]#getdata {
+	height: 30px;
+	width: 100px;
+	margin: 20px 430px;
+	font-family: calibri;
+	font-size: 17px;
+	background: 
+}
+ table tr,td,th{
+    background-color:  #FFFFFF;
+}
+
+.containts form table th{
+	border-left: 2px solid gray;
+	border-bottom: 2px solid gray;
+	padding: 10px ;
+	text-align: center;
+	font-family: arial;
+}
+.containts form table th:FIRST-CHILD{
+	border-left: none;
+}
+.containts form table td{
+	padding: 3px;
+	 border:1px solid lightgray;
+}
+.containts form table{
+    margin-top:10px;
+    margin-left: 70px;
+  border: 2px solid gray;
+    
+}
+
+.containts form table input[type="text"]{
+	height: 22px;
+	width: 200px;
+	padding: 3px;
+}
+.containts form table input[type="text"]:FOCUS{
+	border: 1px solid #4096ee;
+}
+.containts form table input[type="text"].sr{
+    width:50px;
+}

@@ -1,20 +1,253 @@
-<!DOCTYPE web-app PUBLIC
- "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
- "http://java.sun.com/dtd/web-app_2_3.dtd" >
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+	id="WebApp_ID" version="3.0">
 
-<web-app>
 	<display-name>Archetype Created Web Application</display-name>
-	<servlet>
-		<servlet-name>TestServlet</servlet-name>
-		<display-name>TestServlet</display-name>
-		<description></description>
-		<servlet-class>com.ieeeportal.controller.TestServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>TestServlet</servlet-name>
-		<url-pattern>/TestServlet</url-pattern>
-	</servlet-mapping>
+
 	<welcome-file-list>
 		<welcome-file>/WEB-INF/index.jsp</welcome-file>
 	</welcome-file-list>
+
+	<servlet>
+		<servlet-name>StudentEnquiryController</servlet-name>
+		<servlet-class>com.ieeeportal.controller.StudentEnquiryController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>StudentEnquiryController</servlet-name>
+		<url-pattern>/StudentEnquiryController</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+
+		<display-name>EmailController</display-name>
+		<servlet-name>EmailController</servlet-name>
+		<servlet-class>com.ieeeportal.controller.EmailController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>EmailController</servlet-name>
+		<url-pattern>/EmailController</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>StudentEnquiry</servlet-name>
+		<jsp-file>/WEB-INF/jsp/student/studentEnquiry.jsp</jsp-file>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>StudentEnquiry</servlet-name>
+		<url-pattern>/StudentEnquiry</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>EmployeeLogin</servlet-name>
+		<jsp-file>/WEB-INF/jsp/login/login.jsp</jsp-file>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>EmployeeLogin</servlet-name>
+		<url-pattern>/login</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>AdminHome</servlet-name>
+		<jsp-file>/WEB-INF/jsp/admin/adminhome.jsp</jsp-file>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AdminHome</servlet-name>
+		<url-pattern>/adminhome</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>EmployeeRegistrationForm</servlet-name>
+		<jsp-file>/WEB-INF/jsp/employee/EmployeeRegistration.jsp</jsp-file>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>EmployeeRegistrationForm</servlet-name>
+		<url-pattern>/EmployeeRegistration</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<description>
+		</description>
+		<display-name>EmployeeLoginController</display-name>
+		<servlet-name>EmployeeLoginController</servlet-name>
+		<servlet-class>com.ieeeportal.controller.EmployeeLoginController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>EmployeeLoginController</servlet-name>
+		<url-pattern>/EmployeeLogin</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<description>
+		</description>
+		<display-name>EmployeeLogoutController</display-name>
+		<servlet-name>EmployeeLogoutController</servlet-name>
+		<servlet-class>com.ieeeportal.controller.EmployeeLogoutController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>EmployeeLogoutController</servlet-name>
+		<url-pattern>/EmployeeLogout</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>EmployeeRegistration</servlet-name>
+		<servlet-class>com.ieeeportal.controller.EmployeeRegistrationController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>EmployeeRegistration</servlet-name>
+		<url-pattern>/EmployeeRegistration</url-pattern>
+	</servlet-mapping>
+
+
+	<!-- Harshal backup -->
+
+	<servlet>
+		<servlet-name>SerachStudent</servlet-name>
+		<jsp-file>/WEB-INF/jsp/student/SerachStudent.jsp</jsp-file>
+	</servlet>
+	<servlet>
+		<servlet-name>StudentPayment</servlet-name>
+		<jsp-file>/WEB-INF/jsp/student/StudentPayment.jsp</jsp-file>
+	</servlet>
+	<servlet>
+		<servlet-name>ProjectListServlet</servlet-name>
+		<servlet-class>com.ieeeportal.controller.ProjectListServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>OpenFileServlet</servlet-name>
+		<servlet-class>com.ieeeportal.controller.OpenFileServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>StudentDeatilsServelt</display-name>
+		<servlet-name>StudentDeatilsServelt</servlet-name>
+		<servlet-class>com.ieeeportal.controller.StudentDeatilsServelt</servlet-class>
+	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>GetAllStudentDetailsServlet</display-name>
+		<servlet-name>GetAllStudentDetailsServlet</servlet-name>
+		<servlet-class>com.ieeeportal.controller.GetAllStudentDetailsServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>StudentPayementList</display-name>
+		<servlet-name>StudentPayementList</servlet-name>
+		<servlet-class>com.ieeeportal.controller.StudentPayementList</servlet-class>
+	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>StudentPayementUpdateServlet</display-name>
+		<servlet-name>StudentPayementUpdateServlet</servlet-name>
+		<servlet-class>com.ieeeportal.controller.StudentPayementUpdateServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>UpdatePayementServlet</display-name>
+		<servlet-name>UpdatePayementServlet</servlet-name>
+		<servlet-class>com.ieeeportal.controller.UpdatePayementServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>SerachStudent</servlet-name>
+		<url-pattern>/SerachStudent</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>StudentPayment</servlet-name>
+		<url-pattern>/StudentPayment</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ProjectListServlet</servlet-name>
+		<url-pattern>/ProjectListServlet</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>OpenFileServlet</servlet-name>
+		<url-pattern>/OpenFileServlet</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>StudentDeatilsServelt</servlet-name>
+		<url-pattern>/StudentDeatilsServelt</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>GetAllStudentDetailsServlet</servlet-name>
+		<url-pattern>/GetAllStudentDetailsServlet</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>StudentPayementList</servlet-name>
+		<url-pattern>/StudentPayementList</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>StudentPayementUpdateServlet</servlet-name>
+		<url-pattern>/StudentPayementUpdateServlet</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>UpdatePayementServlet</servlet-name>
+		<url-pattern>/UpdatePayementServlet</url-pattern>
+	</servlet-mapping>
+
+	<!-- end -->
+	<context-param>
+		<param-name>adminusername</param-name>
+		<param-value>admin</param-value>
+	</context-param>
+	<context-param>
+		<param-name>adminpassword</param-name>
+		<param-value>admin</param-value>
+	</context-param>
+	<!-- SMTP settings -->
+	<context-param>
+		<param-name>host</param-name>
+		<param-value>smtp.gmail.com</param-value>
+	</context-param>
+	<context-param>
+		<param-name>port</param-name>
+		<param-value>25</param-value>
+	</context-param>
+
+	<context-param>
+		<param-name>port</param-name>
+		<param-value>587</param-value>
+	</context-param>
+
+	<context-param>
+		<param-name>user</param-name>
+		<param-value>softinfology15@gmail.com</param-value>
+	</context-param>
+
+	<context-param>
+		<param-name>pass</param-name>
+		<param-value>softinfology2015</param-value>
+	</context-param>
+
+	<context-param>
+		<param-name>filepath</param-name>
+		<param-value>D://softinfology.jpg</param-value>
+	</context-param>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </web-app>

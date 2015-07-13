@@ -3,6 +3,7 @@ package com.ieeeportal.controller;
 import java.io.IOException;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -36,14 +37,15 @@ public class OpenFileServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		String path = request.getParameter("path").toString();
-		
+		ServletContext context=getServletContext();
+		String cmd=context.getInitParameter("cmd");
 		path=path.replace("\\", "\\\\");
 		
 		System.out.println("path:"+path);
 		try {
 			
 			 
-			    String cmd = "D:\\Reader11.0\\Reader\\AcroRd32.exe";
+			    
 			    System.out.println("cmd /c start "+cmd+" "+ path);
 				Runtime.getRuntime().exec("cmd /c start "+cmd+" "+path) ;
 			    

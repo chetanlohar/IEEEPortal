@@ -27,7 +27,7 @@
 		
 			<table width="700" border="2" align="center" bgcolor="#82CAFA">
 
-				<tr bgcolor="#FAB282">
+				<tr bgcolor="#9E7BFF">
 					<th >ID</th>
 					<th>Name</th>
 					<th>Path</th>
@@ -46,10 +46,10 @@
                      <c:set var="sdom" value="${sessionScope.domain }"/>    
 					 <c:if test="${dom eq sdom }">
 					<tr>
-						<td bgcolor="#CCFFFF"><c:out value="${data.prjid}" /></td>
-						<td bgcolor="#FFCCFF"><c:out value="${data.prjtitle }" /></td>
-						<td bgcolor="#CCFFFF"><a href="./OpenFileServlet?path=${data.prjpath}"><c:out value="${data.prjpath }"/></a></td>
-						<td bgcolor="#FFCCFF"><c:out value="${data.prjyear }" /></td>
+						<td bgcolor="#DCF5DC"><c:out value="${data.prjid}" /></td>
+						<td bgcolor="#F5F5DC"><c:out value="${data.prjtitle }" /></td>
+						<td bgcolor="#DCF5DC"><a href="./OpenFileServlet?path=${data.prjpath}"><c:out value="${data.prjpath }"/></a></td>
+						<td bgcolor="#F5F5DC"><c:out value="${data.prjyear }" /></td>
 						</tr>
 					</c:if>
 				</c:forEach>

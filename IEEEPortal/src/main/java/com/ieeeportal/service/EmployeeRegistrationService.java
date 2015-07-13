@@ -1,9 +1,9 @@
 package com.ieeeportal.service;
 
-import com.ieeeportal.entity.EmployeeRegistrationEntity;
+import com.ieeeportal.entity.EmployeeEntity;
 
 public interface EmployeeRegistrationService {
 
-	public void registerEmployee(EmployeeRegistrationEntity employe);
+	public void registerEmployee(EmployeeEntity employe);
 	
 }
