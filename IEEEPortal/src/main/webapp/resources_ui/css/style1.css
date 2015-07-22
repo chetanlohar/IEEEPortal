@@ -26,7 +26,7 @@ color: #5F80A8;
 
 }
 .containts form{
-	height:600px;
+	height:auto;
 	width: 70%;
 	margin:10px auto;
 	background: #FFF none repeat scroll 0% 0%;
@@ -1064,6 +1064,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#87e0fd', end
 	background-color: black;
 	color: white;
 	padding: 5px;
+	  text-align: center;
 	-moz-border-radius-topleft: 14px;
 	-webkit-border-top-left-radius: 14px;
 	border-top-left-radius: 14px;

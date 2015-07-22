@@ -2,6 +2,7 @@ package com.ieeeportal.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -19,44 +20,48 @@ import com.ieeeportal.service.impl.StudentDeatilsServiceImpl;
  */
 public class StudentPayementUpdateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public StudentPayementUpdateServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-	doPost(request, response);
+	public StudentPayementUpdateServlet() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-	System.out.println("grp id is:"+request.getParameter("grpid"));
-	String grpid=request.getParameter("grpid");
-	System.out.println("1 in " +grpid);
-	HttpSession session=request.getSession();
-	session.removeAttribute("msg");
-StudentDetailsService detailsService=new StudentDeatilsServiceImpl();
-ArrayList<StudentDetailsEntity> detailsEntity=new ArrayList<StudentDetailsEntity>();
-detailsEntity=detailsService.getStudent(grpid);
-session.setAttribute("srchstud", detailsEntity);
+		doPost(request, response);
+	}
 
-System.out.println("Student details are: "+detailsEntity);
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doPost(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		System.out.println("grp id is:" + request.getParameter("grpid"));
+		String grpid = request.getParameter("grpid");
+		System.out.println("1 in " + grpid);
+		HttpSession session = request.getSession();
+		session.removeAttribute("msg");
+		StudentDetailsService detailsService = new StudentDeatilsServiceImpl();
+		List<StudentDetailsEntity> detailsEntity = detailsService.getStudent(grpid);
+		session.setAttribute("srchstud", detailsEntity);
 
-	
-		RequestDispatcher rd=request.getRequestDispatcher("WEB-INF/jsp/student/StudentPayementUpdate.jsp");
+		System.out.println("Student details are: " + detailsEntity);
+
+		RequestDispatcher rd = request
+				.getRequestDispatcher("WEB-INF/jsp/student/StudentPayementUpdate.jsp");
 
 		rd.forward(request, response);
+		
 	}
 
 }

@@ -30,6 +30,26 @@
 		<url-pattern>/EmailController</url-pattern>
 	</servlet-mapping>
 
+
+	<servlet>
+		<servlet-name>DomainController</servlet-name>
+		<servlet-class>com.ieeeportal.controller.ProjectListServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>DomainController</servlet-name>
+		<url-pattern>/DomainSelection</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>domains</servlet-name>
+		<jsp-file>/WEB-INF/jsp/project/domain.jsp</jsp-file>
+	</servlet>
+
+	<servlet-mapping>
+
+		<servlet-name>domains</servlet-name>
+		<url-pattern>/domain</url-pattern>
+	</servlet-mapping>
 	<servlet>
 		<servlet-name>StudentEnquiry</servlet-name>
 		<jsp-file>/WEB-INF/jsp/student/studentEnquiry.jsp</jsp-file>
@@ -108,14 +128,17 @@
 		<servlet-name>SerachStudent</servlet-name>
 		<jsp-file>/WEB-INF/jsp/student/SerachStudent.jsp</jsp-file>
 	</servlet>
+	<servlet-mapping>
+		<servlet-name>SerachStudent</servlet-name>
+		<url-pattern>/SerachStudent</url-pattern>
+	</servlet-mapping>
+
+
 	<servlet>
 		<servlet-name>StudentPayment</servlet-name>
 		<jsp-file>/WEB-INF/jsp/student/StudentPayment.jsp</jsp-file>
 	</servlet>
-	<servlet>
-		<servlet-name>ProjectListServlet</servlet-name>
-		<servlet-class>com.ieeeportal.controller.ProjectListServlet</servlet-class>
-	</servlet>
+	
 	<servlet>
 		<servlet-name>OpenFileServlet</servlet-name>
 		<servlet-class>com.ieeeportal.controller.OpenFileServlet</servlet-class>
@@ -155,21 +178,49 @@
 		<servlet-name>UpdatePayementServlet</servlet-name>
 		<servlet-class>com.ieeeportal.controller.UpdatePayementServlet</servlet-class>
 	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>ProjectRequirements</display-name>
+		<servlet-name>ProjectRequirements</servlet-name>
+		<servlet-class>com.ieeeportal.controller.ProjectRequirements</servlet-class>
+	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>UpdateProjectRequirements</display-name>
+		<servlet-name>UpdateProjectRequirements</servlet-name>
+		<servlet-class>com.ieeeportal.controller.UpdateProjectRequirements</servlet-class>
+	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>DirectoryListController</display-name>
+		<servlet-name>DirectoryListController</servlet-name>
+		<servlet-class>com.ieeeportal.controller.DirectoryListController</servlet-class>
+	</servlet>
+	<!-- <servlet>
+		<description>
+		</description>
+		<display-name>DomainPaperController</display-name>
+		<servlet-name>DomainPaperController</servlet-name>
+		<servlet-class>com.ieeeportal.controller.DomainPaperController</servlet-class>
+	</servlet> -->
+
 	<servlet-mapping>
-		<servlet-name>SerachStudent</servlet-name>
-		<url-pattern>/SerachStudent</url-pattern>
+		<servlet-name>UpdateProjectRequirements</servlet-name>
+		<url-pattern>/UpdateProjectRequirements</url-pattern>
 	</servlet-mapping>
+
+
 	<servlet-mapping>
 		<servlet-name>StudentPayment</servlet-name>
 		<url-pattern>/StudentPayment</url-pattern>
 	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>ProjectListServlet</servlet-name>
-		<url-pattern>/ProjectListServlet</url-pattern>
-	</servlet-mapping>
+	
 	<servlet-mapping>
 		<servlet-name>OpenFileServlet</servlet-name>
-		<url-pattern>/OpenFileServlet</url-pattern>
+		<url-pattern>/OpenFile</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>StudentDeatilsServelt</servlet-name>
@@ -191,8 +242,69 @@
 		<servlet-name>UpdatePayementServlet</servlet-name>
 		<url-pattern>/UpdatePayementServlet</url-pattern>
 	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ProjectRequirements</servlet-name>
+		<url-pattern>/ProjectRequirements</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>DirectoryListController</servlet-name>
+		<url-pattern>/DirectoryListController</url-pattern>
+	</servlet-mapping>
+	<!-- <servlet-mapping>
+		<servlet-name>DomainPaperController</servlet-name>
+		<url-pattern>/DomainPaper</url-pattern>
+	</servlet-mapping> -->
+
 
 	<!-- end -->
+	
+	
+	
+	
+	<!-- Shailesh Backup  -->
+	
+	<servlet>
+		<servlet-name>StudentRegistrationController</servlet-name>
+		<servlet-class>com.ieeeportal.controller.StudentRegistrationController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>StudentRegistrationController</servlet-name>
+		<url-pattern>/StudentRegistrationController</url-pattern>
+	</servlet-mapping>
+
+ <servlet>
+		<servlet-name>StudentRegistrationForm</servlet-name>
+		<jsp-file>/WEB-INF/jsp/student/StudentRegistration.jsp</jsp-file>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>StudentRegistrationForm</servlet-name>
+		<url-pattern>/StudentRegistrationForm</url-pattern>
+	</servlet-mapping>
+
+<servlet>
+		<servlet-name>StudentEnquiryDetails</servlet-name>
+		<jsp-file>/WEB-INF/jsp/student/EnquiredStudents.jsp</jsp-file>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>StudentEnquiryDetails</servlet-name>
+		<url-pattern>/StudentEnquiryDetails</url-pattern>
+	</servlet-mapping>
+	
+	
+	<!-- End Shailesh Backup -->
+		
+	<!-- Pratik Backup -->
+	<servlet>
+	   <servlet-name>AdminProjectAssignmentController</servlet-name>
+	   <servlet-class>com.ieeeportal.controller.AdminProjectAssignmentController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+	   <servlet-name>AdminProjectAssignmentController</servlet-name>
+	   <url-pattern>/AdminProjectAssignment</url-pattern>
+	</servlet-mapping>
+	
+	<!-- End -->
+	
 	<context-param>
 		<param-name>adminusername</param-name>
 		<param-value>admin</param-value>
@@ -215,39 +327,26 @@
 		<param-name>port</param-name>
 		<param-value>587</param-value>
 	</context-param>
-
 	<context-param>
 		<param-name>user</param-name>
 		<param-value>softinfology15@gmail.com</param-value>
 	</context-param>
-
 	<context-param>
 		<param-name>pass</param-name>
 		<param-value>softinfology2015</param-value>
 	</context-param>
-
+     
 	<context-param>
 		<param-name>filepath</param-name>
 		<param-value>D://softinfology.jpg</param-value>
 	</context-param>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	<context-param>
+		<param-name>abstractpathcmd</param-name>
+		<param-value>D://Microsoft_Office//Office12//WINWORD</param-value>
+	</context-param>
+	<context-param>
+		<param-name>basepaperpathcmd</param-name>
+		<param-value>D://adobe//Reader//AcroRd32</param-value>
+	</context-param>
 
 </web-app>

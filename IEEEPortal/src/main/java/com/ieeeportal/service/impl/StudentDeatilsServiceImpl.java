@@ -1,6 +1,7 @@
 package com.ieeeportal.service.impl;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.ieeeportal.dao.StudentDAO;
 import com.ieeeportal.dao.impl.StudentDAOImpl;
@@ -11,10 +12,10 @@ import com.ieeeportal.util.StudentOperation;
 public class StudentDeatilsServiceImpl implements StudentDetailsService
 {
 	StudentDAO  studentDAO=new StudentDAOImpl();
-ArrayList<StudentDetailsEntity> studentDetailsEntities=new ArrayList<StudentDetailsEntity>();
+List<StudentDetailsEntity> studentDetailsEntities=new ArrayList<StudentDetailsEntity>();
 StudentDetailsEntity detailsEntity=new StudentDetailsEntity();
 StudentOperation studentOperation=new StudentOperation();
-	public ArrayList<StudentDetailsEntity> getallStudent() 
+	public List<StudentDetailsEntity> getallStudent() 
 	{
 		// TODO Auto-generated method stub
 		studentDetailsEntities=studentDAO.getAllStudentList();
@@ -22,7 +23,7 @@ StudentOperation studentOperation=new StudentOperation();
 		return studentDetailsEntities;
 	}
 
-	public ArrayList<StudentDetailsEntity> getStudent(String name)
+	public List<StudentDetailsEntity> getStudent(String name)
 	{
 		// TODO Auto-generated method stub
 		studentDetailsEntities=studentOperation.getSpStudent(name);

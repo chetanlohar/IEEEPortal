@@ -82,7 +82,7 @@
 
 	<div class="containts">
 		<!--Employee Registration form--->
-		<form >
+		<form style="height:560px;">
 			<!-- After Submitting goes to Employee Registration Controller-->
 			<br>
 			<h1>Employee Registration Form</h1>
@@ -161,7 +161,7 @@
 			<div>
 				<label>Address:</label> <input type="text" height="70px"
 					width="25px" id="empAddress"><br>
-				<br><br><br><input type="button" id="getEmpData" value="Register" style="margin-left: 205px">
+				<br><br><input type="button" id="getEmpData" value="Register" style="margin-left: 205px">
 				<input type="reset" value="Clear">
 			</div>
 

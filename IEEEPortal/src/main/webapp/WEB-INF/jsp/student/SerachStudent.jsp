@@ -25,20 +25,23 @@
 				<h1 style="color:#000;font-size: 1.9em;">IEEE Project Management System(IPMS)</h1>
 			</div>
 			<ul class="navigation">
-			    <li class="hvr-sweep-to-top"  id="active">
-					<a href="./SerachStudent">Enquired</a>
+			    <li class="hvr-sweep-to-top">
+					<a href="adminhome">Home</a>
+				</li>
+			    <li class="hvr-sweep-to-top"  >
+					<a href="StudentEnquiryController?action=showenquired">Enquired</a>
 				</li>
 				<li class="hvr-sweep-to-top">
-					<a href="#">Domains</a>
+					<a href="DomainSelection?action=selectdomain">Domains</a>
 				</li>
 				<li class="hvr-sweep-to-top">
-					<a href="#">Project Assignment</a>
+					<a href="AdminProjectAssignment?action=showData">Project Assignment</a>
+				</li>
+                <li class="hvr-sweep-to-top" id="active">
+					<a href="SerachStudent">Project Requirement</a>
 				</li>
                 <li class="hvr-sweep-to-top">
-					<a href="#">Project Requirement</a>
-				</li>
-                <li class="hvr-sweep-to-top">
-					<a href="./StudentPayment">Payment</a>
+					<a href="StudentPayment">Payment</a>
 				</li>
                 <li class="hvr-sweep-to-top">
 					<a href="#">Reports</a>
@@ -58,7 +61,7 @@
 		<!--  <h2>Give your feedback after a file download in Interaction tab</h2>  -->
 		<div class="CSSTableGenerator">
 			<h2 align="center">Student List</h2>
-			<table width="700" border="2" align="center" bgcolor="#82CAFA">
+			<table>
 
 				<tr>
 					<th>Group ID</th>
@@ -66,18 +69,14 @@
 					<th>Project Title</th>
 					<th>Technology</th>
 					<th>Team Size</th>
-					<th>Total fee</th>
-					<th>Total Paid</th>
-					<th>Total Pending</th>
-
 					<th>College</th>
-
+					<th>Requirements</th>
 				</tr>
 				<c:choose>
 
 					<c:when test="${ empty srchstud}">
 						<tr>
-							<td colspan="5"><font style="text-align: center" size="3em">There
+							<td colspan="9"><font style="text-align: center" size="3em">There
 									are no results to display!!</font></td>
 						</tr>
 					</c:when>
@@ -92,11 +91,13 @@
 								<td ><c:out value="${data.tech }" /></td>
 								<td ><c:out value="${data.teamsize }" /></td>
 
-								<td ><c:out value="${data.tfee }" /></td>
+							<%-- 	<td ><c:out value="${data.tfee }" /></td>
 								<td ><c:out value="${data.paidtamt }" /></td>
-								<td ><c:out value="${data.unpaidamt }" /></td>
-
+								<td ><c:out value="${data.unpaidamt }" /></td> --%>
 								<td ><c:out value="${data.clgname }" /></td>
+							
+							<td><a href="./ProjectRequirements?groupID=${data.grpid}">ADD</a></td>
+							
 							</tr>
 
 						</c:forEach>

@@ -11,7 +11,9 @@ public class StudentEntity implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	private int enquiryId;
 	private String enquiryDate;
+	private String regDate;
 	private int StudentCityId;
 	private int StudentCollegeId;
 	private String StudentDepartment;
@@ -19,6 +21,9 @@ public class StudentEntity implements Serializable {
 	private int StudentDomainId;
 	private int StudentTeamsize;
 	private int StudentReferenceId;
+	private String projecttitle;
+	private double totalfee;
+	private double discount;
 	private List<String>  StudentNameList;
 	private List<String> StudentContactList;
 	private List<String> StudentEmailList;
@@ -28,14 +33,17 @@ public class StudentEntity implements Serializable {
 	
 	}
 
-	public StudentEntity(String enquiryDate, int studentCityId,
+	public StudentEntity(int enquiryId, String enquiryDate, String regDate,int studentCityId,
 			int studentCollegeId, String studentDepartment,
 			String studentTechnology, int studentDomainId, int studentTeamsize,
-			int studentReferenceId, List<String> studentNameList,
+			int studentReferenceId, String projtitle, double totfee, double disamt,
+			List<String> studentNameList,
 			List<String> studentContactList, List<String> studentEmailList,
 			List<String> studentGenderList) {
 		super();
+		this.enquiryId = enquiryId;
 		this.enquiryDate = enquiryDate;
+		this.regDate = regDate;
 		StudentCityId = studentCityId;
 		StudentCollegeId = studentCollegeId;
 		StudentDepartment = studentDepartment;
@@ -43,10 +51,21 @@ public class StudentEntity implements Serializable {
 		StudentDomainId = studentDomainId;
 		StudentTeamsize = studentTeamsize;
 		StudentReferenceId = studentReferenceId;
+		projecttitle = projtitle;
+		totalfee = totfee;
+		discount = disamt;
 		StudentNameList = studentNameList;
 		StudentContactList = studentContactList;
 		StudentEmailList = studentEmailList;
 		StudentGenderList = studentGenderList;
+	}
+    
+	public int getEnquiryId() {
+		return enquiryId;
+	}
+
+	public void setEnquiryId(int enquiryId) {
+		this.enquiryId = enquiryId;
 	}
 
 	public String getEnquiryDate() {
@@ -55,6 +74,14 @@ public class StudentEntity implements Serializable {
 
 	public void setEnquiryDate(String enquiryDate) {
 		this.enquiryDate = enquiryDate;
+	}
+
+	public String getRegDate() {
+		return regDate;
+	}
+
+	public void setRegDate(String regDate) {
+		this.regDate = regDate;
 	}
 
 	public int getStudentCityId() {
@@ -112,6 +139,30 @@ public class StudentEntity implements Serializable {
 	public void setStudentReferenceId(int studentReferenceId) {
 		StudentReferenceId = studentReferenceId;
 	}
+    
+	public String getProjecttitle() {
+		return projecttitle;
+	}
+
+	public void setProjecttitle(String projecttitle) {
+		this.projecttitle = projecttitle;
+	}
+
+	public double getTotalfee() {
+		return totalfee;
+	}
+
+	public void setTotalfee(double totalfee) {
+		this.totalfee = totalfee;
+	}
+
+	public double getDiscount() {
+		return discount;
+	}
+
+	public void setDiscount(double discount) {
+		this.discount = discount;
+	}
 
 	public List<String> getStudentNameList() {
 		return StudentNameList;
@@ -148,14 +199,4 @@ public class StudentEntity implements Serializable {
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-
-
-	
-	
-	
-	
-	
-	
-	
-	
 }

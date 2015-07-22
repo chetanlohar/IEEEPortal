@@ -8,6 +8,7 @@
 	
 	<link rel="stylesheet" href="<%= request.getContextPath()%>/resources_ui/css/style1.css" />
 	<link rel="stylesheet" href="<%= request.getContextPath()%>/resources_ui/css/reset.css" />
+
 </head>
 <body>
 <div class="currentuser">
@@ -26,19 +27,22 @@
 					<a href="#">Home</a>
 				</li>
 			    <li class="hvr-sweep-to-top" >
-					<a href="./SerachStudent">Enquired</a>
+					<a href="StudentEnquiryController?action=showenquired">Enquired</a>
+				</li>
+				<li class="hvr-sweep-to-top" >
+					<a href="StudentEnquiryController?action=showenquired">Registered</a>
 				</li>
 				<li class="hvr-sweep-to-top">
-					<a href="#">Domains</a>
+					<a href="DomainSelection?action=selectdomain">Domains</a>
 				</li>
 				<li class="hvr-sweep-to-top">
-					<a href="#">Project Assignment</a>
+					<a href="AdminProjectAssignment?action=showData">Project Assignment</a>
 				</li>
                 <li class="hvr-sweep-to-top">
-					<a href="#">Project Requirement</a>
+					<a href="SerachStudent">Project Requirement</a>
 				</li>
                 <li class="hvr-sweep-to-top">
-					<a href="#">Payment</a>
+					<a href="StudentPayment">Payment</a>
 				</li>
                 <li class="hvr-sweep-to-top">
 					<a href="#">Reports</a>

@@ -1,6 +1,7 @@
 package com.ieeeportal.entity;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
 
 public class ProjectDetailEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -11,6 +12,25 @@ public class ProjectDetailEntity implements Serializable {
     private String prjpath;
     private String prjtype;
     private String prjdom;
+    private int empId;
+    private int domainId;
+    private String empName;
+    
+	public String getEmpName() {
+		return empName;
+	}
+	
+	public void setEmpName(String empName) {
+		this.empName = empName;
+	}
+	private Timestamp dateOfAssign;
+
+    public int getDomainId() {
+		return domainId;
+	}
+	public void setDomainId(int domainId) {
+		this.domainId = domainId;
+	}
 	public int getPrjid() {
 		return prjid;
 	}
@@ -53,7 +73,24 @@ public class ProjectDetailEntity implements Serializable {
 	public void setPrjdom(String prjdom) {
 		this.prjdom = prjdom;
 	}
-	
+	public int getEmpId() {
+		return empId;
+	}
+	public void setEmpId(int empId) {
+		this.empId = empId;
+	}
+	/**
+	 * @return the dateOfAssign
+	 */
+	public Timestamp getDateOfAssign() {
+		return dateOfAssign;
+	}
+	/**
+	 * @param dateOfAssign the dateOfAssign to set
+	 */
+	public void setDateOfAssign(Timestamp dateOfAssign) {
+		this.dateOfAssign = dateOfAssign;
+	}
 	@Override
 	public String toString() {
 		return "ProjectDetailEntity [prjid=" + prjid + ", prjsta=" + prjsta

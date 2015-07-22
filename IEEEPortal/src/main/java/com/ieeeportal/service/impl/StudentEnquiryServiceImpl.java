@@ -8,11 +8,23 @@ import com.ieeeportal.entity.CityEntity;
 import com.ieeeportal.entity.CollegeEntity;
 import com.ieeeportal.entity.DomainEntity;
 import com.ieeeportal.entity.ReferenceEntity;
+import com.ieeeportal.entity.StudentDetailsEntity;
 import com.ieeeportal.entity.StudentEntity;
 import com.ieeeportal.service.StudentEnquiryService;
+import com.ieeeportal.util.StudentOperation;
 
 public class StudentEnquiryServiceImpl implements StudentEnquiryService {
 
+	
+	StudentEnquiryDAOImpl studentEnquiryDAO = null;
+	StudentOperation studentOperation = null;
+	public StudentEnquiryServiceImpl(){
+		studentEnquiryDAO = new StudentEnquiryDAOImpl();
+		studentOperation = new StudentOperation();
+	}
+	
+	
+	
 	public String studentEnquiryDetails(StudentEntity enquiryEntity) {
 		StudentEnquiryDAOImpl studentEnquiryDAO=new StudentEnquiryDAOImpl();
 		return studentEnquiryDAO.insertEnquiryRecord(enquiryEntity);
@@ -54,6 +66,17 @@ public class StudentEnquiryServiceImpl implements StudentEnquiryService {
 		List<ReferenceEntity> referenceList = studentEnquiryDAO.referenceList();
 
 		return referenceList;
+	}
+
+	@Override
+	public List<StudentDetailsEntity> enquiredStudentList() {
+		List<StudentDetailsEntity> enquiredStudentList = studentEnquiryDAO.enquiredStudentList();
+		return enquiredStudentList;
+	}
+	 
+	public List<StudentDetailsEntity> enquiredSpStudentList(String name){
+		List<StudentDetailsEntity> enquiredSpStudentList = studentOperation.getSpEnquiredStudentList(name);
+		return enquiredSpStudentList;
 	}
 
 	

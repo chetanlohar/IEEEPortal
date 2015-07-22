@@ -15,60 +15,98 @@ import org.apache.catalina.Session;
 import com.ieeeportal.entity.ProjectDetailEntity;
 import com.ieeeportal.service.ProjectListService;
 import com.ieeeportal.service.impl.ProjectListImpl;
+import com.ieeeportal.service.impl.StudentEnquiryServiceImpl;
 
 /**
  * Servlet implementation class ProjectListServlet
  */
 public class ProjectListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public ProjectListServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+	private static final String DOMAINPAGE = "domain";
+	StudentEnquiryServiceImpl enquiryfieldList = null;
+	ProjectListService projectListService = null;
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-	doPost(request, response);
+	public ProjectListServlet() {
+		super();
+		enquiryfieldList = new StudentEnquiryServiceImpl();
+		projectListService = new ProjectListImpl();
+		// TODO Auto-generated constructor stub
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		HttpSession session=request.getSession();
-		String domain=request.getParameter("domain");
+		doPost(request, response);
+	}
 
-		session.setAttribute("domain", domain);
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doPost(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		HttpSession session = request.getSession();
+		String action = null;
 
-		if(session.getAttribute("prjlist") != null)
-		{
-			RequestDispatcher rd=request.getRequestDispatcher("WEB-INF/jsp/project/ProjectList.jsp");
+		action = request.getParameter("action");
 
+		System.out.println("Action is :" + action);
+		if (action.equalsIgnoreCase("selectdomain")) {
+			System.out.println("in selectdomain");
+			session.setAttribute("domainList", enquiryfieldList.domainList());
+			/*
+			 * if (session.getAttribute("domainList") != null) {
+			 */
+			if (session.getAttribute("dName") != null) {
+				session.removeAttribute("dName");
+			}
+
+			session.removeAttribute("prjlist");
+			RequestDispatcher rd = request.getRequestDispatcher(DOMAINPAGE);
+			rd.forward(request, response);
+			/* } */
+		}
+		if (action.equalsIgnoreCase("domainpapers")) {
+			System.out.println("in domainpapers");
+			int domainid = Integer.parseInt(request.getParameter("dom"));
+			ArrayList<ProjectDetailEntity> projectDetailList = new ArrayList<ProjectDetailEntity>();
+			projectDetailList = projectListService.getProjectList(domainid);
+			String domainName = null;
+			for (ProjectDetailEntity pde : projectDetailList) {
+				domainName = pde.getPrjdom();
+				break;
+			}
+
+			session.setAttribute("dName", domainName);
+			session.setAttribute("prjlist", projectDetailList);
+			RequestDispatcher rd = request.getRequestDispatcher(DOMAINPAGE);
 			rd.forward(request, response);
 		}
-		else
-		{
-		ArrayList<ProjectDetailEntity> projectDetailList=new ArrayList<ProjectDetailEntity>();
-	ProjectListService projectListService=new  ProjectListImpl();
-	projectDetailList=projectListService.getProjectList();
-	 session=request.getSession();
-	session.setAttribute("prjlist", projectDetailList);
-
-	RequestDispatcher rd=request.getRequestDispatcher("WEB-INF/jsp/project/ProjectList.jsp");
-
-	rd.forward(request, response);
-	
-	System.out.println("Project details:"+projectDetailList);
-		}
-	
+		/*
+		 * String domain = request.getParameter("domain");
+		 * 
+		 * session.setAttribute("domain", domain); else {
+		 * ArrayList<ProjectDetailEntity> projectDetailList = new
+		 * ArrayList<ProjectDetailEntity>(); ProjectListService
+		 * projectListService = new ProjectListImpl(); projectDetailList =
+		 * projectListService.getProjectList(); session = request.getSession();
+		 * session.setAttribute("prjlist", projectDetailList);
+		 * 
+		 * RequestDispatcher rd = request
+		 * .getRequestDispatcher("WEB-INF/jsp/project/domain.jsp");
+		 * 
+		 * rd.forward(request, response);
+		 * 
+		 * System.out.println("Project details:" + projectDetailList); }
+		 */
 	}
 
 }

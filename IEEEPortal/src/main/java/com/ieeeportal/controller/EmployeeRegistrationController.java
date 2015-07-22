@@ -18,8 +18,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import javax.mail.Session;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -34,7 +34,7 @@ import com.ieeeportal.service.impl.EmployeeRegisterServiceImpl;
 
 public class EmployeeRegistrationController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+    boolean flag;
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
@@ -58,6 +58,7 @@ public class EmployeeRegistrationController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
+	@SuppressWarnings("unchecked")
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
@@ -71,7 +72,7 @@ public class EmployeeRegistrationController extends HttpServlet {
 		
 			
 			EmployeeDaoImpl employeeDaoImpl=new EmployeeDaoImpl();
-			list=employeeDaoImpl.getEmployeeNames();
+			list=employeeDaoImpl.getEmployeeRecords();
 		    session.setAttribute("EmpNameList",list);
 			RequestDispatcher rd=request.getRequestDispatcher("/WEB-INF/jsp/employee/EmployeeRegistration.jsp");
 		    rd.forward(request, response);
@@ -110,39 +111,42 @@ public class EmployeeRegistrationController extends HttpServlet {
 			
 			try {
 				EmployeeRegistrationService emImpl = new EmployeeRegisterServiceImpl();
-				emImpl.registerEmployee(employee);
-				final String username = "softinfology15@gmail.com";
-				final String password1 = "softinfology2015";
-		 		Properties props = new Properties();
-				props.put("mail.smtp.auth", "true");
-				props.put("mail.smtp.starttls.enable", "true");
-				props.put("mail.smtp.host", "smtp.gmail.com");
-				props.put("mail.smtp.port", "587");
-		 
-				javax.mail.Session session1 = Session.getInstance(props,
-				  new javax.mail.Authenticator() {
-					protected PasswordAuthentication getPasswordAuthentication() {
-						return new PasswordAuthentication(username, password1);
-					}
-				  });
-		 
-				try {
-		 
-				
-					Message message = new MimeMessage(session1);
-					message.setFrom(new InternetAddress(username));
-					message.setRecipients(Message.RecipientType.TO,
-						InternetAddress.parse(emailID));
-					message.setSubject("Regards");
-					message.setText(employee.getEmpName()+"\n"+"you are Sucessfully Registered at Softinfology Pvt Ltd..");
+				flag = emImpl.registerEmployee(employee);
+				if(flag){
+					final String username = "softinfology15@gmail.com";
+					final String password1 = "softinfology2015";
+			 		Properties props = new Properties();
+					props.put("mail.smtp.auth", "true");
+					props.put("mail.smtp.starttls.enable", "true");
+					props.put("mail.smtp.host", "smtp.gmail.com");
+					props.put("mail.smtp.port", "587");
+			 
+					javax.mail.Session session1 = Session.getInstance(props,
+					  new javax.mail.Authenticator() {
+						protected PasswordAuthentication getPasswordAuthentication() {
+							return new PasswordAuthentication(username, password1);
+						}
+					  });
+			 
+					try {
+			 
+					
+						Message message = new MimeMessage(session1);
+						message.setFrom(new InternetAddress(username));
+						message.setRecipients(Message.RecipientType.TO,
+							InternetAddress.parse(emailID));
+						message.setSubject("Regards");
+						message.setText(employee.getEmpName()+"\n"+"you are Sucessfully Registered at Softinfology Pvt Ltd..");
 
-		 
-					Transport.send(message);
-		 
-					System.out.println("Done");
-		 
-				} catch (MessagingException e) {
-					throw new RuntimeException(e);
+			 
+						Transport.send(message);
+			 
+						System.out.println("Mail Sent to employee!!");
+			 
+					} catch (MessagingException e) {
+						throw new RuntimeException(e);
+					}
+					
 				}
 				
 			

@@ -195,6 +195,50 @@
 	});
 </script>
 
+<script>
+					
+	function validation() {
+
+		if($("#enqCity").val()=="" ||$("#enqCity").val()==0){
+			alert("Please Select City");
+			$("#enqCity").focus();
+		}
+		
+		if($("#enqColg").val()==""|| $("#enqColg").val() == 0){
+			alert("Please  Select College Name");		
+			$("#enqColg").focus();
+		}
+		
+		if($("#enqDept").val()==""|| $("#enqDept").val() == 0){
+			alert("Please  Select Department");		
+			$("#enqDept").focus();
+		}
+		
+		if($("#enqDomain").val()==""|| $("#enqDomain").val() == 0){
+			alert("Please  Select Domain");		
+			$("#enqDomain").focus();
+		}
+		
+		if($("#enqTech").val()==""|| $("#enqTech").val() == 0){
+			alert("Please  Select Technology");		
+			$("#enqTech").focus();
+		}
+		
+		if($("#enqTeamSz").val()==""|| $("#enqTeamSz").val() == 0){
+			alert("Please  Select Team Size");		
+			$("#enqTeamSz").focus();
+		}
+		
+		if($("#enqRef").val()==""|| $("#enqRef").val() == 0){
+			alert("Please  Select Reference");		
+			$("#enqRef").focus();
+		}
+		
+				
+	}
+					
+</script>
+
 
 </head>
 <body>
@@ -221,7 +265,7 @@
 	</div>
 	<c:set var="now" value="<%=new java.util.Date()%>" />
 	<div class="containts">
-		<form id="EnquiryForm" >
+		<form id="EnquiryForm" name = "form">
             <br>
 			<h1>Enquiry Form</h1>
             <br>  
@@ -264,8 +308,8 @@
 				</select>
 			</div>
 			<div>
-				<label>Domain :</label> <select id="enqDomain">
-					<option value="0" selected>select college</option>
+				<label>Domain :</label> <select id="enqDomain" name="domain">
+					<option value="0" selected>select Domain</option>
 					<c:forEach var="domain" items="${sessionScope.domainList}">
 						<option value="${domain.domainId}">${domain.domainName}</option>
 					</c:forEach>
@@ -338,7 +382,7 @@
 			</table>
 
 
-			<input type="button" id="getdata" value="Submit">
+			<input type="button"    onclick="validation();"     id="getdata" value="Submit">
 
 		</form>
 		<br>

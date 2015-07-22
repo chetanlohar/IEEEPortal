@@ -8,6 +8,7 @@ public interface EmployeeDAO {
 
 	//This Method For Employee Registration(INPUT=Employee Object) and Output void
 	
-	public void insertEmpRecords(EmployeeEntity employee);
+	public boolean insertEmpRecords(EmployeeEntity employee);
 	public List readEmpRecords(EmployeeEntity employee);
+	public List<EmployeeEntity> getEmployeeRecords();//retrive all employee Personal Records
 }

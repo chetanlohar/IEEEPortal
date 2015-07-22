@@ -1,7 +1,6 @@
 package com.ieeeportal.dao.impl;
 
 import java.sql.Array;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -16,6 +15,7 @@ import com.ieeeportal.entity.CityEntity;
 import com.ieeeportal.entity.CollegeEntity;
 import com.ieeeportal.entity.DomainEntity;
 import com.ieeeportal.entity.ReferenceEntity;
+import com.ieeeportal.entity.StudentDetailsEntity;
 import com.ieeeportal.entity.StudentEntity;
 import com.ieeeportal.service.impl.StudentEnquiryServiceImpl;
 import com.ieeeportal.util.ConnectionFactory;
@@ -325,5 +325,44 @@ public class StudentEnquiryDAOImpl implements StudentEnquiryDAO {
 		
 		return references;
 	}
+	
+	
+	
+	@Override
+	public List<StudentDetailsEntity> enquiredStudentList() {
+		List<StudentDetailsEntity> listOfEnqStudents = new ArrayList<StudentDetailsEntity>();
+		String query = "SELECT ed.CLM_ENQID,ed.CLM_ENQDATE,ecd.CLM_ENQNM,cntm.CLM_PHNO,"+
+				"cntm.CLM_EMLID,cm.CLM_CLGNM FROM tbl_clgmst cm"+" LEFT OUTER JOIN tbl_enqdet ed "+
+				"ON ed.CLM_CLGID=cm.CLM_CLGID RIGHT OUTER JOIN tbl_enqcontdet ecd ON "+
+				"ed.CLM_ENQID=ecd.CLM_ENQID RIGHT OUTER JOIN  tbl_contmst cntm ON "+
+				"cntm.CLM_CONTID=ecd.CLM_CONTID WHERE ed.CLM_STATUS=?"+
+				"ORDER BY ed.CLM_ENQID";
+		try{
+		    PreparedStatement preparedStatement = connection.prepareStatement(query);
+		    preparedStatement.setString(1, "Enquired");
+		    ResultSet rs = preparedStatement.executeQuery();
+		    while(rs.next()){
+		    	StudentDetailsEntity sdEntity = new StudentDetailsEntity();
+		    	sdEntity.setEnqid(rs.getInt(1));
+		    	sdEntity.setEnqdate(rs.getString(2));
+		    	sdEntity.setStdname(rs.getString(3));
+		    	sdEntity.setPhoneno(rs.getString(4));
+		    	sdEntity.setEmailid(rs.getString(5));
+		    	sdEntity.setClgname(rs.getString(6));
+		    	listOfEnqStudents.add(sdEntity);
+		    }
+		   
+		}catch(SQLException sqe){
+			System.out.println("In StudentEnquiryDAOImpl in enquiredStudentList "+sqe.getMessage());
+		}
+		 return listOfEnqStudents;
+	}
+	
+	
+	
+	
+	
+	
+	
 
 }

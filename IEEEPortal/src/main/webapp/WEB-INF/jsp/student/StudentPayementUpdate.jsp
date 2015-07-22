@@ -46,19 +46,22 @@ function isNumber(evt) {
 			</div>
 			<ul class="navigation">
 			    <li class="hvr-sweep-to-top" >
-					<a href="./SerachStudent">Enquired</a>
+					<a href="adminhome">Home</a>
+				</li>
+			    <li class="hvr-sweep-to-top" >
+					<a href="StudentEnquiryController?action=showenquired">Enquired</a>
 				</li>
 				<li class="hvr-sweep-to-top">
-					<a href="#">Domains</a>
+					<a href="DomainSelection?action=selectdomain">Domains</a>
 				</li>
 				<li class="hvr-sweep-to-top">
-					<a href="#">Project Assignment</a>
+					<a href="AdminProjectAssignment?action=showData">Project Assignment</a>
 				</li>
                 <li class="hvr-sweep-to-top">
-					<a href="#">Project Requirement</a>
+					<a href="SerachStudent">Project Requirement</a>
 				</li>
                 <li class="hvr-sweep-to-top" id="active">
-					<a href="./StudentPayment">Payment</a>
+					<a href="StudentPayment">Payment</a>
 				</li>
                 <li class="hvr-sweep-to-top">
 					<a href="#">Reports</a>

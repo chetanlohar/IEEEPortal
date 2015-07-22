@@ -2,6 +2,7 @@ package com.ieeeportal.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -46,8 +47,7 @@ public class StudentPayementList extends HttpServlet {
 		HttpSession session=request.getSession();
 		
 	StudentDetailsService detailsService=new StudentDeatilsServiceImpl();
-	ArrayList<StudentDetailsEntity> detailsEntity=new ArrayList<StudentDetailsEntity>();
-	detailsEntity=detailsService.getStudent(name);
+	List<StudentDetailsEntity> detailsEntity=detailsService.getStudent(name);
 	session.setAttribute("srchstud", detailsEntity);
 	System.out.println("Student details are: "+detailsEntity);
 	RequestDispatcher rd=request.getRequestDispatcher("WEB-INF/jsp/student/StudentPayment.jsp");
