@@ -34,6 +34,7 @@ import com.ieeeportal.service.impl.EmployeeRegisterServiceImpl;
 
 public class EmployeeRegistrationController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private static final String EmployeeRegister="/EmployeeRegistrationForm";
     boolean flag;
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -74,7 +75,7 @@ public class EmployeeRegistrationController extends HttpServlet {
 			EmployeeDaoImpl employeeDaoImpl=new EmployeeDaoImpl();
 			list=employeeDaoImpl.getEmployeeRecords();
 		    session.setAttribute("EmpNameList",list);
-			RequestDispatcher rd=request.getRequestDispatcher("/WEB-INF/jsp/employee/EmployeeRegistration.jsp");
+		    RequestDispatcher rd=request.getRequestDispatcher(EmployeeRegister);
 		    rd.forward(request, response);
 		}
 		

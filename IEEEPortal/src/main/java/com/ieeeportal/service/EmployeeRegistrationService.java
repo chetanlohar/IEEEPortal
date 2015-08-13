@@ -8,5 +8,6 @@ public interface EmployeeRegistrationService {
 
 	public boolean registerEmployee(EmployeeEntity employe);
 	public List getEmployeeRecords();
+	public String getEmployeeName(EmployeeEntity employeeEntity);
 	
 }

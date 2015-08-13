@@ -18,6 +18,6 @@ public interface StudentEnquiryService {
 	public List<ReferenceEntity> referenceList();
 	public List<StudentDetailsEntity> enquiredStudentList();
 	public List<StudentDetailsEntity> enquiredSpStudentList(String name);
-		
+	public List<String> getPaperPath(StudentEntity studentEntity);	
 	
 }

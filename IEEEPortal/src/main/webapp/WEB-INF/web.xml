@@ -85,7 +85,7 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>EmployeeRegistrationForm</servlet-name>
-		<url-pattern>/EmployeeRegistration</url-pattern>
+		<url-pattern>/EmployeeRegistrationForm</url-pattern>
 	</servlet-mapping>
 
 	<servlet>
@@ -143,6 +143,13 @@
 		<servlet-name>OpenFileServlet</servlet-name>
 		<servlet-class>com.ieeeportal.controller.OpenFileServlet</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>ReportServlet</servlet-name>
+		<servlet-class>com.ieeeportal.controller.ReportServlet</servlet-class>
+	</servlet>
+	
+	
+	
 	<servlet>
 		<description>
 		</description>
@@ -282,12 +289,29 @@
 	</servlet-mapping>
 
 <servlet>
+		<servlet-name>StudentEnquiryDomainForm</servlet-name>
+		<jsp-file>/WEB-INF/jsp/student/studentEnquiry.jsp</jsp-file>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>StudentEnquiryDomainForm</servlet-name>
+		<url-pattern>/StudentEnquiryDomain</url-pattern>
+	</servlet-mapping>
+<servlet>
 		<servlet-name>StudentEnquiryDetails</servlet-name>
 		<jsp-file>/WEB-INF/jsp/student/EnquiredStudents.jsp</jsp-file>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>StudentEnquiryDetails</servlet-name>
 		<url-pattern>/StudentEnquiryDetails</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>RegisteredStudentPage</servlet-name>
+		<jsp-file>/WEB-INF/jsp/student/RegisteredStudents.jsp</jsp-file>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>RegisteredStudentPage</servlet-name>
+		<url-pattern>/RegisteredStudent</url-pattern>
 	</servlet-mapping>
 	
 	
@@ -303,7 +327,52 @@
 	   <url-pattern>/AdminProjectAssignment</url-pattern>
 	</servlet-mapping>
 	
+	<servlet-mapping>
+		<servlet-name>ReportServlet</servlet-name>
+		<url-pattern>/ReportServlet</url-pattern>
+	</servlet-mapping>
+	
+	
 	<!-- End -->
+	
+	<servlet>
+		<servlet-name>error</servlet-name>
+		<jsp-file>/WEB-INF/error.jsp</jsp-file>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>error</servlet-name>
+		<url-pattern>/error</url-pattern>
+	</servlet-mapping>
+	
+ 
+	
+	<!-- Error page -->
+	<error-page>
+	<exception-type>java.lang.Throwable</exception-type>
+	<location>/WEB-INF/error.jsp</location>
+	</error-page>
+	<!--EmployeeHome -->
+	<servlet>
+	<servlet-name>EmployeeHomePage</servlet-name>
+	<jsp-file>/WEB-INF/jsp/employee/EmployeeHome.jsp</jsp-file>
+	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>EmployeeProfileController</display-name>
+		<servlet-name>EmployeeProfileController</servlet-name>
+		<servlet-class>com.ieeeportal.controller.EmployeeProfileController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+	<servlet-name>EmployeeHomePage</servlet-name>
+	<url-pattern>/EmployeeHomePage</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>EmployeeProfileController</servlet-name>
+		<url-pattern>/EmployeeProfile</url-pattern>
+	</servlet-mapping>
+	
+	<!-- End EmployeeHome-->
 	
 	<context-param>
 		<param-name>adminusername</param-name>
@@ -348,5 +417,8 @@
 		<param-name>basepaperpathcmd</param-name>
 		<param-value>D://adobe//Reader//AcroRd32</param-value>
 	</context-param>
+	
+	
+	
 
 </web-app>

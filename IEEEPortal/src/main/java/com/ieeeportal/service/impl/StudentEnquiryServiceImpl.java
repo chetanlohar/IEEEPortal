@@ -79,6 +79,14 @@ public class StudentEnquiryServiceImpl implements StudentEnquiryService {
 		return enquiredSpStudentList;
 	}
 
+
+
+	@Override
+	public List<String> getPaperPath(StudentEntity studentEntity) {
+		
+		return studentEnquiryDAO.getPaperPathFromId(studentEntity);
+	}
+
 	
 	
 

@@ -23,6 +23,9 @@
 					<a href="StudentEnquiryController?action=showdata">Enquiry</a>
 				</li>
 				<li class="hvr-sweep-to-top">
+					<a href="DomainSelection?action=selectdomain">Domains</a>
+				</li>
+				<li class="hvr-sweep-to-top">
 					<a href="login">Login</a>
 					 
 				</li>

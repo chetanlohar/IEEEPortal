@@ -67,6 +67,7 @@ public class EmailUtility {
 		// creates multi-part
 		Multipart multipart = new MimeMultipart();
 		multipart.addBodyPart(messageBodyPart);
+		System.out.println("attach file length"+attachedFiles.size());
 
 		// adds attachments
 		if (attachedFiles != null && attachedFiles.size() > 0) {

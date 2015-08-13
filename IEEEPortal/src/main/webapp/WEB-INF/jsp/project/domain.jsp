@@ -1,3 +1,4 @@
+<%@page errorPage="error"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -27,19 +28,19 @@
 					Management System(IPMS)</h1>
 			</div>
 			<ul class="navigation">
-				<li class="hvr-sweep-to-top"><a href="adminhome">Home</a></li>
-				<li class="hvr-sweep-to-top"><a
-					href="StudentEnquiryController?action=showenquired">Enquired</a></li>
-				<li class="hvr-sweep-to-top" id="active"><a href="#" >Domains</a></li>
-				<li class="hvr-sweep-to-top"><a
-					href="AdminProjectAssignment?action=showData">Project
-						Assignment</a></li>
-				<li class="hvr-sweep-to-top"><a href="SerachStudent">Project
-						Requirement</a></li>
-				<li class="hvr-sweep-to-top"><a href="StudentPayment">Payment</a></li>
-				<li class="hvr-sweep-to-top"><a href="#">Reports</a></li>
-
-			</ul>
+			    <li class="hvr-sweep-to-top"  >
+					<a href="#">Home</a>
+				</li>
+				<li class="hvr-sweep-to-top">
+					<a href="StudentEnquiryController?action=showdata">Enquiry</a>
+				</li>
+				<li class="hvr-sweep-to-top" id="active">
+					<a href="DomainSelection?action=selectdomain">Domains</a>
+				</li>
+				<li class="hvr-sweep-to-top">
+					<a href="login">Login</a>
+				</li>
+				</ul>
 		</div>
 	</div>
 	<input id='lc' type='hidden' value='${sessionScope.currentusername}' />

@@ -1,3 +1,4 @@
+<%@page errorPage="error"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -28,8 +29,39 @@ function isNumber(evt) {
     }
     return true;
 }
+function isValidamt() {
+   // alert("hi");
+    var var1 = document.getElementById("paidamt").value;
+    var var2 = document.getElementById("unpaid").value;
+    var var3=parseInt(var2, 10)
+    var paid=document.getElementById('paidamt');
+//alert("paidamt var1: "+var1);
+//alert("unpaid var3: "+var3);
+
+    if (var1>var3) 
+    {
+    	alert("Enter valid amount");
+    	paid.value="";
+        return false;
+    }
+    return true;
+}
 
 
+function confirmComplete() {
+	//alert("confirmComplete");
+	    var var1 = document.getElementById("paidamt").value;
+
+	var answer=confirm("Amount to be paid is: "+var1);
+	if (answer==true)
+	  {
+	    return true;
+	  }
+	else
+	  {
+	    return false;
+	  }
+	}
 </script>
 
 <body>
@@ -46,22 +78,19 @@ function isNumber(evt) {
 			</div>
 			<ul class="navigation">
 			    <li class="hvr-sweep-to-top" >
-					<a href="adminhome">Home</a>
-				</li>
-			    <li class="hvr-sweep-to-top" >
-					<a href="StudentEnquiryController?action=showenquired">Enquired</a>
+					<a href="./SerachStudent">Enquired</a>
 				</li>
 				<li class="hvr-sweep-to-top">
-					<a href="DomainSelection?action=selectdomain">Domains</a>
+					<a href="#">Domains</a>
 				</li>
 				<li class="hvr-sweep-to-top">
-					<a href="AdminProjectAssignment?action=showData">Project Assignment</a>
+					<a href="#">Project Assignment</a>
 				</li>
                 <li class="hvr-sweep-to-top">
-					<a href="SerachStudent">Project Requirement</a>
+					<a href="#">Project Requirement</a>
 				</li>
                 <li class="hvr-sweep-to-top" id="active">
-					<a href="StudentPayment">Payment</a>
+					<a href="./StudentPayment">Payment</a>
 				</li>
                 <li class="hvr-sweep-to-top">
 					<a href="#">Reports</a>
@@ -92,7 +121,7 @@ function isNumber(evt) {
 			<c:set var="tot" value="${data.tfee }"/>
 			<c:set var="paid" value="${data.paidtamt }"/>
 			<c:set var="unp" value="${data.unpaidamt }"/>
-
+    
 		</c:forEach>
 				
 		
@@ -106,17 +135,17 @@ function isNumber(evt) {
             Paid fees :<c:out value="${paid }" />
 			<br> 			<br>
 			
-            Unpaid fees:<c:out value="${unp }" />
+            Unpaid fees:<c:out  value="${unp }" />
 			<br>			<br>
-			
+			<input type="hidden" id="unpaid" value="${unp }" >
         Group Id :<input type="text" readonly="readonly" name="grpid" value="${grpid}"> 
         <br>			<br>
         
-		Amount to be pay :&nbsp;<input type="text" name="paidamt" required="required" > <br>
+		Amount to be pay :&nbsp;<input type="text" id="paidamt" name="paidamt" required="required" onblur="return isValidamt()" > <br>
 					<br>
 		Enter Receiver Employee Id :&nbsp;<input type="text" name="empid" required="required"> <br>
 					<br>
-		<input type="submit" value="Submit">
+		<input type="submit" value="Submit" onclick="return confirmComplete()">
 
 	</form>
 	<c:set var="msg" value="${sessionScope.msg}"/> 

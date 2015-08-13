@@ -1,6 +1,7 @@
 package com.ieeeportal.entity;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class StudentDetailsEntity implements Serializable {
 
@@ -34,6 +35,7 @@ public class StudentDetailsEntity implements Serializable {
 	private double disamt;
 	private String projname;
 	private String reference;
+	private List<String> studentNameList; 
 
 	public double getPaidtamt() {
 		return paidtamt;
@@ -241,6 +243,20 @@ public class StudentDetailsEntity implements Serializable {
 
 	public void setRefid(int refid) {
 		this.refid = refid;
+	}
+
+	/**
+	 * @return the studentNameList
+	 */
+	public List<String> getStudentNameList() {
+		return studentNameList;
+	}
+
+	/**
+	 * @param studentNameList the studentNameList to set
+	 */
+	public void setStudentNameList(List<String> studentNameList) {
+		this.studentNameList = studentNameList;
 	}
 
 	@Override

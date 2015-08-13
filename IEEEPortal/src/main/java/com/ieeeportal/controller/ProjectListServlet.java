@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.catalina.Session;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import com.ieeeportal.entity.ProjectDetailEntity;
 import com.ieeeportal.service.ProjectListService;
@@ -76,19 +78,30 @@ public class ProjectListServlet extends HttpServlet {
 		}
 		if (action.equalsIgnoreCase("domainpapers")) {
 			System.out.println("in domainpapers");
-			int domainid = Integer.parseInt(request.getParameter("dom"));
+			JSONObject jsonobj = new JSONObject(request.getParameter("enquirydata").trim());
+			System.out.println("Jsonobject:"+jsonobj.toString());
+			int domainid = (Integer)jsonobj.get("domid");
+			
+			System.out.println("Domain id from jsp ajax:"+domainid);
 			ArrayList<ProjectDetailEntity> projectDetailList = new ArrayList<ProjectDetailEntity>();
 			projectDetailList = projectListService.getProjectList(domainid);
+			System.out.println("Paper list from dao:"+projectDetailList.size());
 			String domainName = null;
 			for (ProjectDetailEntity pde : projectDetailList) {
 				domainName = pde.getPrjdom();
 				break;
 			}
-
-			session.setAttribute("dName", domainName);
-			session.setAttribute("prjlist", projectDetailList);
-			RequestDispatcher rd = request.getRequestDispatcher(DOMAINPAGE);
-			rd.forward(request, response);
+            //JSONObject jsonresobj = new JSONObject();
+            //jsonresobj.put("paperlist", projectDetailList);
+            //System.out.println("response object:"+jsonresobj.toString());
+            JSONArray jarry = new JSONArray(projectDetailList);
+            System.out.println(jarry);
+            session.setAttribute("dName", domainName);
+            response.getWriter().print(jarry);
+			
+			//session.setAttribute("prjlist", projectDetailList);
+			/*RequestDispatcher rd = request.getRequestDispatcher(DOMAINPAGE);
+			rd.forward(request, response);*/
 		}
 		/*
 		 * String domain = request.getParameter("domain");

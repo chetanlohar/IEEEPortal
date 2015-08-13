@@ -1,5 +1,6 @@
 package com.ieeeportal.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Enumeration;
@@ -16,6 +17,7 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -23,6 +25,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+
+
+
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.FileItemFactory;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -32,14 +41,18 @@ import com.ieeeportal.entity.StudentDetailsEntity;
 import com.ieeeportal.entity.StudentEntity;
 import com.ieeeportal.service.StudentEnquiryService;
 import com.ieeeportal.service.impl.StudentEnquiryServiceImpl;
+import com.ieeeportal.util.SendpPayementReceipt;
 
 public class StudentEnquiryController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	private static final String ENQUIRYPAGE = "StudentEnquiry";
 	private static final String ENQUIREDPAGE = "StudentEnquiryDetails";
+	private  static final String PAPERPATH="D:/DOMAINS"; 
+	int domid;
 	List<CityEntity> listofCity;
 	StudentEnquiryServiceImpl enquiryfieldService = null;
+	List<String> paperpathlist;
 
 	public StudentEnquiryController() {
 		super();
@@ -54,9 +67,12 @@ public class StudentEnquiryController extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-
+       
+		
 		System.out.println("in StudentEnquiryController");
 		String action = request.getParameter("action");
+		System.out.println("action is"+action);
+	     ServletContext context=request.getServletContext();
 
 		HttpSession session = request.getSession();
 		if (action.equalsIgnoreCase("showdata")) {
@@ -65,19 +81,7 @@ public class StudentEnquiryController extends HttpServlet {
 
 			JSONArray jsonarray = new JSONArray();
 
-			// StudentEnquiryServiceImpl enquiryfieldList = new
-			// StudentEnquiryServiceImpl();
-
-			/*
-			 * cityList = enquiryfieldList.cityList();
-			 * 
-			 * try { for(CityEntity city : cityList){ json = new JSONObject();
-			 * json.put("cityName", city.getCityName()); jsonarray.put(json); }
-			 * } catch (JSONException e) { // TODO Auto-generated catch block
-			 * e.printStackTrace(); }
-			 */
-
-			/* listofCity = enquiryfieldList.cityList(); */
+			
 			session.setAttribute("cityList", enquiryfieldService.cityList());
 			session.setAttribute("collegeList", enquiryfieldService.collegeList());
 			session.setAttribute("domainList", enquiryfieldService.domainList());
@@ -97,13 +101,13 @@ public class StudentEnquiryController extends HttpServlet {
 
 				System.out.println(jsonobj.toString());
 
-				// String date = (String) jsonobj.get("enDate");
-				// System.out.println("date is "+date);
+				
 				JSONArray jsonnamearray = (JSONArray) jsonobj.get("enName");
 				JSONArray jsonemailarray = (JSONArray) jsonobj.get("enEmail");
 				JSONArray jsoncontactarray = (JSONArray) jsonobj.get("enCont");
-				JSONArray jsongenderarray = (JSONArray) jsonobj
-						.get("enqGender");
+				JSONArray jsongenderarray = (JSONArray) jsonobj.get("enqGender");
+				JSONArray jsonSelectedPaerArray=(JSONArray)jsonobj.get("SelectedPapers");
+				System.out.println(" array of papers"+jsonSelectedPaerArray.toString());
 				String date = jsonobj.getString("enDate");
 
 				int cityID = Integer.parseInt(jsonobj.getString("enCity"));
@@ -112,6 +116,19 @@ public class StudentEnquiryController extends HttpServlet {
 				String department = jsonobj.getString("enDept");
 				int domainID = Integer.parseInt(jsonobj.getString("enDomain"));
 				String technology = jsonobj.getString("enTech");
+				
+				String nameofstudentfile=jsonobj.getString("studentfile");
+				System.out.println(" name of student file"+nameofstudentfile);
+				
+				String filename=nameofstudentfile.substring(12);
+				
+				System.out.println(" \nnew filename is"+filename);
+				
+				File studentfile=new File(filename);
+				System.out.println("\n absolute path"+studentfile.getAbsolutePath());
+				
+				
+				
 				String teamsz = jsonobj.getString("enTeamsz");
 				int referenceID = Integer.parseInt(jsonobj.getString("enRef"));
 
@@ -121,6 +138,7 @@ public class StudentEnquiryController extends HttpServlet {
 				List<String> emaillist = new ArrayList<>();
 				List<String> contactlist = new ArrayList<>();
 				List<String> genderlist = new ArrayList<>();
+				List<String> paperlist=new ArrayList<String>();
 
 				for (int i = 0; i < jsonnamearray.length(); i++) {
 					System.out.println("names are :"
@@ -129,6 +147,12 @@ public class StudentEnquiryController extends HttpServlet {
 					namelist.add(jsonnamearray.getString(i));
 				}
 
+				for (int i = 0; i < jsonSelectedPaerArray.length(); i++) {
+					System.out.println("papers are :"
+							+ jsonSelectedPaerArray.getString(i));
+
+					paperlist.add(jsonSelectedPaerArray.getString(i));
+				}
 				if(emaillist.size()!=0){
 					emaillist.clear();
 				}
@@ -140,8 +164,6 @@ public class StudentEnquiryController extends HttpServlet {
 					emaillist.add(jsonemailarray.getString(i));
 				}
 				
-				
-
 				for (int i = 0; i < jsoncontactarray.length(); i++) {
 
 					System.out.println("contacts are :"
@@ -170,11 +192,17 @@ public class StudentEnquiryController extends HttpServlet {
 				studenqbean.setStudentEmailList(emaillist);
 				studenqbean.setStudentContactList(contactlist);
 				studenqbean.setStudentGenderList(genderlist);
-
-				StudentEnquiryService studenqServiceImpl = new StudentEnquiryServiceImpl();
-
-				String EnquirySuccess = studenqServiceImpl
+				studenqbean.setStudentpaperList(paperlist);
+               
+				paperpathlist=enquiryfieldService.getPaperPath(studenqbean);
+				
+				for(String s:paperpathlist){
+					System.out.println("In controller path is:"+s);
+				}
+				String EnquirySuccess = enquiryfieldService
 						.studentEnquiryDetails(studenqbean);
+				SendpPayementReceipt sendpPayementReceipt=new SendpPayementReceipt();
+				sendpPayementReceipt.enquirymail(context,studenqbean,paperpathlist);
 
 				if (EnquirySuccess.equalsIgnoreCase("inserted")) {
 
@@ -204,7 +232,10 @@ public class StudentEnquiryController extends HttpServlet {
 							message.setRecipients(Message.RecipientType.TO,
 									InternetAddress.parse(emails));
 							message.setSubject("Regards");
-							message.setText("Thank You for enquiring at softinfology");
+							message.setText("Thank You for enquiring at softinfology"
+									+ "<br>"
+									+ "<br>"
+									+ "<img src=http://www.ieeeclass.com/images/image003.jpg > ");
 
 							Transport.send(message);
 
@@ -215,26 +246,15 @@ public class StudentEnquiryController extends HttpServlet {
 						}
 
 					}
-					/*
-					 * session.setAttribute("UserEmails",emaillist);
-					 * 
-					 * RequestDispatcher requestdispatcher =
-					 * request.getRequestDispatcher("/SendMailAttachServlet");
-					 * requestdispatcher.forward(request, response);
-					 * 
-					 * EmailUtil emailobj = new EmailUtil();
-					 * 
-					 * emailobj.sendEmail(studEmailbean);
-					 */
+					
 				}
 
 			} catch (JSONException e) {
-				// TODO Auto-generated catch block
+				
 				e.printStackTrace();
 			}
 
 		}
-		// shows the enquired student details who want to register
 		if (action.equalsIgnoreCase("showenquired")) {
             session.removeAttribute("enquiredstudentlist");
 			RequestDispatcher dispatcher = request
@@ -245,14 +265,12 @@ public class StudentEnquiryController extends HttpServlet {
 
 		if(action.equalsIgnoreCase("showspenquired")){
 			String sname = request.getParameter("name");
-			/*if(enquiryfieldService == null){
-				enquiryfieldService = new StudentEnquiryServiceImpl();
-			}*/
+			
 			
 			List<StudentDetailsEntity> listOfSpEnqStudent = new ArrayList<StudentDetailsEntity>();
 			
 			 listOfSpEnqStudent = enquiryfieldService.enquiredSpStudentList(sname);
-				//System.out.println("in serach list:"+listOfSpEnqStudent.size());
+				
 			session.setAttribute("enquiredstudentlist",listOfSpEnqStudent);
 			RequestDispatcher dispatcher = request
 					.getRequestDispatcher(ENQUIREDPAGE);
@@ -266,6 +284,48 @@ public class StudentEnquiryController extends HttpServlet {
 						.getRequestDispatcher(ENQUIREDPAGE);
 				dispatcher.forward(request, response);
 		}
-	}
-
+		
+		if(action.equalsIgnoreCase("paperId")){
+			JSONObject json = new JSONObject(request.getParameter("popupdomain"));
+			 domid=json.getInt("popupId");
+			System.out.println(" dom id: are mansa"+domid);
+			
+		}
+		
+		if(action.equalsIgnoreCase("uploadfile")){
+	
+			
+			boolean ismultipart=ServletFileUpload.isMultipartContent(request);
+            System.out.println("ismultipart"+ismultipart);
+            /*if(ismultipart){*/
+            	FileItemFactory factory=new DiskFileItemFactory();
+            	ServletFileUpload upload=new ServletFileUpload(factory);
+            	try{
+            		
+            		List<FileItem> multiparts=upload.parseRequest(request);
+            		for(FileItem item:multiparts){
+            			if(!item.isFormField()){
+            				
+            				String name=new File(item.getName()).getName();
+            				
+            				System.out.println(" file name"+item.getName());
+            				
+            				System.out.println(" file  full name"+PAPERPATH+File.separator+name);
+            				
+            				item.write(new File(PAPERPATH+File.separator+name));
+            				
+            			}
+            			
+            		}
+            	}catch (Exception e) 
+				{
+  				  e.printStackTrace();
+  				}
+            	
+            }
+			
+		}
+	//}
+			
+			
 }

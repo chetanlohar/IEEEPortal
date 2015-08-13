@@ -77,4 +77,16 @@ public class ProjectListImpl implements ProjectListService {
 		return assignedProject;
 	}
 
+	@Override
+	public ArrayList<ProjectDetailEntity> getSpProjectList(int domid) {
+		
+		return projectListDAO.getSpProjectList(domid);
+	}
+
+	@Override
+	public String openFile(String fileid) {
+		
+		return projectListDAO.getFilePath(fileid);
+	}
+
 }

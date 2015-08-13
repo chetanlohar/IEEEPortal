@@ -11,4 +11,5 @@ public interface EmployeeDAO {
 	public boolean insertEmpRecords(EmployeeEntity employee);
 	public List readEmpRecords(EmployeeEntity employee);
 	public List<EmployeeEntity> getEmployeeRecords();//retrive all employee Personal Records
+	public String getEmployeeName(EmployeeEntity employeeEntity);
 }

@@ -30,6 +30,42 @@ public class ProjectListDAOImpl implements ProjectListDAO {
 		connection = ConnectionFactory.getConnection();
 	}
 
+	public ArrayList<ProjectDetailEntity> getSpProjectList(int domid) {
+
+		System.out.println("hi");
+		ArrayList<ProjectDetailEntity> listOfDomWisePaper = new ArrayList<ProjectDetailEntity>();
+		
+		String query = "SELECT p.CLM_PROJID,p.CLM_PROJPPRYEAR,p.CLM_PROJTLE,"
+				+ "p.CLM_PROJPPR FROM tbl_projtypemst pt,tbl_dommst dm,"
+				+ "tbl_projdet p WHERE p.CLM_PROJTYPEID=pt.CLM_PROJTYPEID AND p.CLM_DOMID=dm.CLM_DOMID AND "
+				+ "p.CLM_DOMID = ?";
+		try {
+			PreparedStatement preparedStatement = connection.prepareStatement(query);
+			preparedStatement.setInt(1, domid);
+			ResultSet rs = preparedStatement.executeQuery();
+			System.out.println("domid is"+domid);
+			while (rs.next()) {
+				
+				detailEntity = new ProjectDetailEntity();
+				detailEntity.setPrjid(rs.getInt("CLM_PROJID"));
+				detailEntity.setPrjpath(rs.getString("CLM_PROJPPR"));
+				detailEntity.setPrjtitle(rs.getString("CLM_PROJTLE"));
+				detailEntity.setPrjyear(rs.getString("CLM_PROJPPRYEAR"));
+				listOfDomWisePaper.add(detailEntity);
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {/*
+					 * try { //rs.close(); //con.close(); } catch (SQLException
+					 * e) { // TODO Auto-generated catch block
+					 * e.printStackTrace(); }
+					 */
+		}
+		return listOfDomWisePaper;
+	}
+
 	public ArrayList<ProjectDetailEntity> getProjectList(int domid) {
 
 		System.out.println("hi");
@@ -38,11 +74,14 @@ public class ProjectListDAOImpl implements ProjectListDAO {
 				+ "p.CLM_PROJPPR,pt.CLM_PROJTYPENM,dm.CLM_DOMNM FROM tbl_projtypemst pt,tbl_dommst dm,"
 				+ "tbl_projdet p WHERE p.CLM_PROJTYPEID=pt.CLM_PROJTYPEID AND p.CLM_DOMID=dm.CLM_DOMID AND "
 				+ "p.CLM_DOMID = ?";
+		
 		try {
 			PreparedStatement preparedStatement = connection.prepareStatement(query);
 			preparedStatement.setInt(1, domid);
 			ResultSet rs = preparedStatement.executeQuery();
+			System.out.println("domid is"+domid);
 			while (rs.next()) {
+				
 				detailEntity = new ProjectDetailEntity();
 				detailEntity.setPrjdom(rs.getString("CLM_DOMNM"));
 				detailEntity.setPrjid(rs.getInt("CLM_PROJID"));
@@ -65,7 +104,6 @@ public class ProjectListDAOImpl implements ProjectListDAO {
 		}
 		return listOfDomWisePaper;
 	}
-
 	@Override
 	public String addRequirements(ProjectRequirementsEntity projReqEntity) {
 
@@ -218,12 +256,13 @@ public class ProjectListDAOImpl implements ProjectListDAO {
 			projectSubID = ProjectListDAOImpl.getprojectSubId(detailEntity);
 			System.out.println("I am in assignedProject" + projectSubID);
 			if (projectSubID != 0) {
-				String query = "insert into tbl_projasgndet(CLM_EMPID,CLM_PROJSUBID) values(?,?)";
+				String query = "insert into tbl_projasgndet(CLM_EMPID,CLM_PROJSUBID,CLM_DOMID) values(?,?,?)";
 
 				try {
 					preparedStatement = connection.prepareStatement(query);
 					preparedStatement.setInt(1, detailEntity.getEmpId());
 					preparedStatement.setInt(2, projectSubID);
+					preparedStatement.setInt(3, detailEntity.getDomainId());
 					recordsInsert = preparedStatement.executeUpdate();
 					System.out.println(" Records insert sucessfully..."
 							+ recordsInsert);
@@ -360,7 +399,7 @@ public class ProjectListDAOImpl implements ProjectListDAO {
 
 			String query = "select * from tbl_projdet where CLM_PROJID=?";
 			try {
-				preparedStatement = connection.prepareStatement(query);
+	  			preparedStatement = connection.prepareStatement(query);
 				preparedStatement.setInt(1, projId);
 				resultSet = preparedStatement.executeQuery();
 				while (resultSet.next()) {
@@ -385,6 +424,25 @@ public class ProjectListDAOImpl implements ProjectListDAO {
 		}
 
 		return projectDetailEntitylist;
+	}
+
+	@Override
+	public String getFilePath(String fileid) {
+		String filepath = null;
+		String query = "SELECT clm_projppr FROM tbl_projdet WHERE clm_projid=?";
+		
+		try{
+			PreparedStatement preparedStatement = connection.prepareStatement(query);
+			preparedStatement.setString(1, fileid);
+			
+			ResultSet rs = preparedStatement.executeQuery();
+			while(rs.next()){
+				filepath = rs.getString(1);
+			}
+		}catch(SQLException sqe){
+			System.out.println("In ProjectListDAOImpl in getFilePath:"+sqe.getMessage());
+		}
+		return filepath;
 	}
 
 	

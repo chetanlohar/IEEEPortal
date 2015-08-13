@@ -6,5 +6,6 @@ public interface UpdateStudentPayementService
 {
 	
 	public boolean updateStudpayment(String grpid,String empdid,String amt);
+	public String getLstPayement(String grpid);
 
 }

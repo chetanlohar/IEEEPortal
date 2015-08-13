@@ -11,6 +11,7 @@ import com.ieeeportal.entity.ProjectRequirementsEntity;
 public interface ProjectListDAO {
 
 	
+	public ArrayList<ProjectDetailEntity> getSpProjectList(int domid);
 	public ArrayList<ProjectDetailEntity> getProjectList(int domid);
 	public String addRequirements(ProjectRequirementsEntity projReqEntity);
 	public ArrayList<DomainEntity> getProjectDomain();
@@ -19,4 +20,5 @@ public interface ProjectListDAO {
 	//public String addRequirements(ProjectRequirementsEntity projReqEntity);
 	public boolean assignedProject(ProjectDetailEntity detailEntity); 
 	public List<ProjectDetailEntity> getProjectAssigned(ProjectDetailEntity detailEntity);
+	public String getFilePath(String fileid);
 }

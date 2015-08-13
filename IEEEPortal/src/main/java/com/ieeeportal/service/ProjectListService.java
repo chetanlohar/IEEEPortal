@@ -11,6 +11,7 @@ import com.ieeeportal.entity.ProjectRequirementsEntity;
 public interface ProjectListService
 {
 	
+	public ArrayList<ProjectDetailEntity> getSpProjectList(int domid);
 	public ArrayList<ProjectDetailEntity> getProjectList(int domid);
 	public String addRequirements(ProjectRequirementsEntity projReqEntity);
 	public ArrayList<DomainEntity> getDomainName();
@@ -18,5 +19,5 @@ public interface ProjectListService
     public ArrayList<PaperEntity> getPapersName(DomainEntity domainEntity); 
     public boolean assignProject(ProjectDetailEntity detailEntity); 
     public List<ProjectDetailEntity> getProjectAssigned(ProjectDetailEntity detailEntity);
-
+    public String openFile(String fileid);
 }

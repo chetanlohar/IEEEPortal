@@ -28,6 +28,8 @@ public class StudentEntity implements Serializable {
 	private List<String> StudentContactList;
 	private List<String> StudentEmailList;
 	private List<String> StudentGenderList;
+	private List<String> StudentpaperList;
+    
 	
 	public StudentEntity() {
 	
@@ -194,6 +196,20 @@ public class StudentEntity implements Serializable {
 
 	public void setStudentGenderList(List<String> studentGenderList) {
 		StudentGenderList = studentGenderList;
+	}
+
+	/**
+	 * @return the studentpaperList
+	 */
+	public List<String> getStudentpaperList() {
+		return StudentpaperList;
+	}
+
+	/**
+	 * @param studentpaperList the studentpaperList to set
+	 */
+	public void setStudentpaperList(List<String> studentpaperList) {
+		StudentpaperList = studentpaperList;
 	}
 
 	public static long getSerialversionuid() {

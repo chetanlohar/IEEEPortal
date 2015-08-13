@@ -23,6 +23,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.ieeeportal.entity.CityEntity;
+import com.ieeeportal.entity.CollegeEntity;
 import com.ieeeportal.entity.DomainEntity;
 import com.ieeeportal.entity.PaperEntity;
 import com.ieeeportal.entity.ProjectDetailEntity;
@@ -32,6 +34,7 @@ import com.ieeeportal.service.ProjectListService;
 import com.ieeeportal.service.impl.ProjectListImpl;
 import com.ieeeportal.service.impl.StudentEnquiryServiceImpl;
 import com.ieeeportal.service.impl.StudentRegistrationServiceImpl;
+import com.sun.corba.se.impl.ior.NewObjectKeyTemplateBase;
 
 /**
  * Servlet implementation class StudentRegistrationController
@@ -39,10 +42,15 @@ import com.ieeeportal.service.impl.StudentRegistrationServiceImpl;
 public class StudentRegistrationController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     private static final String STUDENTREGFORM = "StudentRegistrationForm";
+    private static final String REGISTEREDSTUDENTPAGE="RegisteredStudent";
     StudentEnquiryServiceImpl enquiryfieldService = null;
     StudentRegistrationServiceImpl sregService = null;
     ProjectListService projectListService=null;
-     StudentEntity studententity = null;  
+     StudentEntity studententity = null; 
+     List<StudentDetailsEntity> registeredStudent;
+     List<CollegeEntity>collegeList;
+     CollegeEntity collegeEntity;
+    
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -52,6 +60,10 @@ public class StudentRegistrationController extends HttpServlet {
         sregService = new StudentRegistrationServiceImpl();
         projectListService=new ProjectListImpl();
         studententity = new StudentEntity(); 
+        this.registeredStudent=null;
+        this.collegeList=null;
+        this.collegeEntity=null;
+     
         // TODO Auto-generated constructor stub
     }
 
@@ -67,6 +79,7 @@ public class StudentRegistrationController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String action = request.getParameter("action");
+		System.out.println(" action "+action);
 		HttpSession session = request.getSession();
 		List<DomainEntity> domainList = new ArrayList<DomainEntity>();
 		DomainEntity domainEntity = new DomainEntity();
@@ -98,6 +111,7 @@ public class StudentRegistrationController extends HttpServlet {
 		else if (action.equalsIgnoreCase("showPaper")) {
 			
 			try {
+				System.out.println(" i am in show paper of registration controller ");
 				JSONObject jsonObject = new JSONObject(request.getParameter("domainData").trim());
 				System.out.println(" data from ajax" + jsonObject.toString());
 				String domainName = (String) jsonObject.get("domainId");
@@ -252,15 +266,31 @@ public class StudentRegistrationController extends HttpServlet {
 					}
 
 				}
-
-				
-				
-				
-				
-				
-				
 			}
+		}else if(action.equalsIgnoreCase("showCollegeName")){
+		 
+		
+		System.out.println("College List.....");
+		collegeList=enquiryfieldService.collegeList();
+		session.setAttribute("listOfCollege",collegeList);
+		RequestDispatcher rd=request.getRequestDispatcher(REGISTEREDSTUDENTPAGE);
+		rd.forward(request,response);
+		
+		}else if(action.equalsIgnoreCase("showRegisteredStudent")){
+			 
+			JSONObject jsonObject=new JSONObject(request.getParameter("collegeData"));
+			String collegeId=(String)jsonObject.get("CollegeId");
+			System.out.println("CollegeId in Controller "+collegeId);
+			 collegeEntity=new CollegeEntity();
+			 collegeEntity.setCollegeId(Integer.parseInt(collegeId));
+			
+			System.out.println("Student Registered List.....");
+			registeredStudent=sregService.registerStudent(collegeEntity);
+			JSONObject jsObject=new JSONObject();
+			jsObject.put("RegisteredStudentList",registeredStudent);
+			System.out.println("Json Object"+jsObject.toString());
+			response.setContentType("application/json");
+			response.getWriter().print(jsObject);
 		}
 	}
-
 }

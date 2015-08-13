@@ -9,16 +9,19 @@ import com.ieeeportal.service.LoginService;
 
 public class LoginServiceImpl implements LoginService{
 
+	LoginDAO logindao=null;
+
+	public LoginServiceImpl() {
+
+		logindao = new LoginDAOImpl();
+	}
+	
 	@Override
 	public String LoginCheck(LoginEntity loginEntity) {
 	
-		LoginDAO logindao = new LoginDAOImpl();
-		
 		String  success = logindao.loginCheck(loginEntity);
-		
 		return success;
 	}
-	
-	
+
 
 }

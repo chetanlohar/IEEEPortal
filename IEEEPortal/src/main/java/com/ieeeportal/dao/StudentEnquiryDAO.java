@@ -19,5 +19,5 @@ public interface StudentEnquiryDAO {
 	public List<CollegeEntity> collegeList();
 	public List<ReferenceEntity> referenceList();
 	public List<StudentDetailsEntity> enquiredStudentList();
-	
-}
+	public List<String> getPaperPathFromId(StudentEntity studEntity);
+} 

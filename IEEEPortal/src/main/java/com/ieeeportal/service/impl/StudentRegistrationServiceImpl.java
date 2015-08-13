@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.ieeeportal.dao.StudentRegistrationDAO;
 import com.ieeeportal.dao.impl.StudentRegistrationDAOImpl;
+import com.ieeeportal.entity.CollegeEntity;
 import com.ieeeportal.entity.StudentDetailsEntity;
 import com.ieeeportal.entity.StudentEntity;
 import com.ieeeportal.service.StudentRegistrationService;
@@ -29,6 +30,16 @@ public class StudentRegistrationServiceImpl implements StudentRegistrationServic
 	public int getGrpId() {
 		
 		return srDAO.selectGrpId();
+	}
+	@Override
+	public List<StudentDetailsEntity> registerStudent(CollegeEntity collegeEntity) {
+		
+		return srDAO.registerStudent(collegeEntity);
+	}
+	@Override
+	public List<StudentDetailsEntity> getEmailList(int goupId) {
+		
+		return srDAO.getEmailList(goupId);
 	}
 	
 

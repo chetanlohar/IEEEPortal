@@ -1,4 +1,4 @@
-
+<%@page errorPage="error"%>
 <!DOCTYPE HTML>
 <!-- Website template by freewebsitetemplates.com -->
 <html>
@@ -30,11 +30,9 @@
 					<a href="StudentEnquiryController?action=showenquired">Enquired</a>
 				</li>
 				<li class="hvr-sweep-to-top" >
-					<a href="StudentEnquiryController?action=showenquired">Registered</a>
+					<a href="StudentRegistrationController?action=showCollegeName">Registered</a>
 				</li>
-				<li class="hvr-sweep-to-top">
-					<a href="DomainSelection?action=selectdomain">Domains</a>
-				</li>
+				
 				<li class="hvr-sweep-to-top">
 					<a href="AdminProjectAssignment?action=showData">Project Assignment</a>
 				</li>

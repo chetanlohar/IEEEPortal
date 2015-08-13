@@ -7,5 +7,5 @@ import com.ieeeportal.entity.LoginEntity;
 public interface LoginDAO {
 	
 	public String loginCheck(LoginEntity loginEntity);
-
+    
 }

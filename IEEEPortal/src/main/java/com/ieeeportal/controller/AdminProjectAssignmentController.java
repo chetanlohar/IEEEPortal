@@ -42,6 +42,7 @@ public class AdminProjectAssignmentController extends HttpServlet {
 	EmployeeRegistrationService employeeRegistrationService;
 	int domainId, paperID, empId;
 	StudentEnquiryService studentEnquiryService;
+	 private static final String ERROR = "error";
 	ProjectDetailEntity projectDetailEntity = new ProjectDetailEntity();
 	public AdminProjectAssignmentController() {
 		super();
@@ -67,7 +68,7 @@ public class AdminProjectAssignmentController extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 
 		HttpSession session = request.getSession();
-
+try{
 		String action = request.getParameter("action");
 		System.out.println(" Action " + action);
 
@@ -139,6 +140,7 @@ public class AdminProjectAssignmentController extends HttpServlet {
 					+ " empId " + empId);
 			projectDetailEntity.setEmpId(empId);
 			projectDetailEntity.setPrjid(paperID);
+			projectDetailEntity.setDomainId(domainId);
 			flag = projectListService.assignProject(projectDetailEntity);
 			if (flag == true) {
 				System.out
@@ -170,98 +172,11 @@ public class AdminProjectAssignmentController extends HttpServlet {
 			break;
 		}
 
-		/*if (action.equalsIgnoreCase("showData")) {
-			domainEntity = new DomainEntity();
-			empNameList = new ArrayList<EmployeeEntity>();
-			domainList = studentEnquiryService.domainList();
-			session.setAttribute("DomainNames", domainList);
-			empList = employeeRegistrationService.getEmployeeRecords();
-			for (EmployeeEntity empRecordList : empList) {
-
-				System.out.println(" emp name  and its designation "
-						+ empRecordList.getEmpName() + " "
-						+ empRecordList.getEmpdesignation());
-				if ((empRecordList.getEmpdesignation()
-						.equalsIgnoreCase("JavaDeveloper"))
-						|| (empRecordList.getEmpdesignation()
-								.equalsIgnoreCase("WebDesigner"))) {
-					EmployeeEntity employeeEntity = employeeEntity = new EmployeeEntity();
-					employeeEntity.setEmpID(empRecordList.getEmpID());
-					employeeEntity.setEmpName(empRecordList.getEmpName());
-					empNameList.add(employeeEntity);
-					session.setAttribute("EmpNameList", empNameList);
-				}
-			}
-
-			RequestDispatcher dispatcher = request
-					.getRequestDispatcher("/WEB-INF/jsp/admin/projectAssignment.jsp");
-			dispatcher.forward(request, response);
-		}*/ 
-		/*else if (action.equalsIgnoreCase("showPaper")) {
-			System.out.println(" hi from ajax reuest");
-
-			try {
-				JSONObject jsonObject = new JSONObject(request.getParameter(
-						"domainData").trim());
-				System.out.println(" data from ajax" + jsonObject.toString());
-				String domainName = (String) jsonObject.get("domainID");
-				domainId = Integer.parseInt(domainName);
-				System.out.println(" domainId in con troller through json "
-						+ domainId);
-				List<ProjectDetailEntity> paperList = projectListService
-						.getProjectList(domainId);
-				System.out.println("size of list is:" + paperList.size());
-				session.setAttribute("papernames", paperList);
-				jsonObject.put("papernamelist", paperList);
-				JSONArray jarry = new JSONArray(paperList);
-				System.out.println(jarry);
-				response.getWriter().print(jarry);
-
-			} catch (JSONException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}*/ /*else if (action.equalsIgnoreCase("submit")) {
-
-			System.out.println(" In submit action");
-			JSONObject jsonObject = new JSONObject(
-					request.getParameter("projectAssignmentData"));
-			System.out.println(" data from assignment in json "
-					+ jsonObject.toString());
-			domainId = jsonObject.getInt("domainID");
-			paperID = jsonObject.getInt("paperID");
-			empId = jsonObject.getInt("employeeID");
-
-			System.out.println("domainId " + domainId + " paperID " + paperID
-					+ " empId " + empId);
-			projectDetailEntity.setEmpId(empId);
-			projectDetailEntity.setPrjid(paperID);
-			flag = projectListService.assignProject(projectDetailEntity);
-			if (flag == true) {
-				System.out
-						.println(" In AdminProjectAssignmentController of flag");
-				assignRecordList = projectListService
-						.getProjectAssigned(projectDetailEntity);
-
-				for (ProjectDetailEntity listOfAssign : assignRecordList) {
-
-					System.out
-							.println(" I am in assignment controller and value of assign product is \n");
-					System.out.println("\nEmpName " + listOfAssign.getEmpName()
-							+ "\n Domain Name" + listOfAssign.getPrjdom()
-							+ " \nPaperName" + listOfAssign.getPrjtitle()
-							+ "\ntime stamp" + listOfAssign.getDateOfAssign());
-					break;
-				}
-				
-				 * jsonObject.put("AssignRecords",assignRecordList); JSONArray
-				 * jArray=new JSONArray(assignRecordList);
-				 * System.out.println(jArray);
-				 * response.getWriter().print(jArray);
-				 
-			}
-
-		}
-*/	}
+}catch(Exception e){
+	session.setAttribute("error", e.getMessage());
+	RequestDispatcher rd=request.getRequestDispatcher(ERROR);
+	rd.forward(request, response);
+}
+}
 
 }

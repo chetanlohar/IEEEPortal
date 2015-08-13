@@ -9,15 +9,18 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.ieeeportal.dao.StudentRegistrationDAO;
+import com.ieeeportal.entity.CollegeEntity;
 import com.ieeeportal.entity.StudentDetailsEntity;
 import com.ieeeportal.entity.StudentEntity;
 import com.ieeeportal.util.ConnectionFactory;
 
 public class StudentRegistrationDAOImpl implements StudentRegistrationDAO {
 	Connection connection = null;
+	List<StudentDetailsEntity> emailList;
 
 	public StudentRegistrationDAOImpl() {
 		connection = ConnectionFactory.getConnection();
+		emailList=new ArrayList<StudentDetailsEntity>(); 
 	}
 
 	@Override
@@ -164,5 +167,63 @@ public class StudentRegistrationDAOImpl implements StudentRegistrationDAO {
 			System.out.println("In StudentRegistrationDAOImpl in selectGrpId:"+sqe.getMessage());
 		}
 		return grpId;
+	}
+	
+	
+	public List<StudentDetailsEntity> getEmailList(int goupId){
+		
+		String query="SELECT cm.CLM_PHNO,cm.CLM_EMLID FROM tbl_studcontdet scd  LEFT OUTER JOIN "
+				+ "   tbl_studregdet srd ON srd.CLM_GRPID=scd.CLM_GRPID"
+				+ " RIGHT OUTER JOIN tbl_contmst cm ON cm.CLM_CONTID=scd.CLM_CONTID WHERE srd.CLM_GRPID=17;  ";
+		try{
+			PreparedStatement preparedStatement = connection.prepareStatement(query);
+			ResultSet rs = preparedStatement.executeQuery();
+			while(rs.next()){
+				
+				StudentDetailsEntity studentDetailsEntity=new StudentDetailsEntity();
+				studentDetailsEntity.setEmailid(rs.getString("CLM_EMLID"));
+				emailList.add(studentDetailsEntity);
+			}
+		}catch(SQLException sqe){
+			System.out.println("In StudentRegistrationDAOImpl in getEmailList"+sqe.getMessage());
+		}
+		
+		
+		return emailList;
+	}
+
+	@Override
+	public List<StudentDetailsEntity> registerStudent(CollegeEntity collegeEntity) {
+		
+		String query="SELECT sid.CLM_STUDNM,cgm.CLM_CLGNM,psd.CLM_PROJTITLE,dm.CLM_DOMNM,sid.CLM_GRPID FROM tbl_studinfodet sid "
+				+ "LEFT OUTER JOIN tbl_studregdet srd ON sid.CLM_GRPID=srd.CLM_GRPID "
+				+ "RIGHT OUTER JOIN tbl_enqdet ed ON srd.CLM_ENQID=ed.CLM_ENQID "
+				+ "RIGHT OUTER JOIN tbl_clgmst cgm ON cgm.CLM_CLGID=ed.CLM_CLGID "
+				+ "RIGHT OUTER JOIN tbl_dommst dm ON dm.CLM_DOMID=ed.CLM_DOMID "
+				+ "RIGHT OUTER JOIN tbl_projsubdet psd ON psd.CLM_GRPID=sid.CLM_GRPID WHERE ed.CLM_STATUS=?AND cgm.CLM_CLGID=?;";
+		List<StudentDetailsEntity> list=new ArrayList<StudentDetailsEntity>();
+		try {
+			PreparedStatement preparedStatement=connection.prepareStatement(query);
+			preparedStatement.setString(1,"Registered");
+			preparedStatement.setInt(2, collegeEntity.getCollegeId());
+			ResultSet resultSet=preparedStatement.executeQuery();
+			while(resultSet.next()){
+		     
+				StudentDetailsEntity studentDetailsEntity=new StudentDetailsEntity();
+				studentDetailsEntity.setStdname(resultSet.getString("CLM_STUDNM"));
+				studentDetailsEntity.setClgname(resultSet.getString("CLM_CLGNM"));
+				studentDetailsEntity.setProjname(resultSet.getString("CLM_PROJTITLE"));
+				studentDetailsEntity.setDomain(resultSet.getString("CLM_DOMNM"));
+				studentDetailsEntity.setGrpid(resultSet.getInt("CLM_GRPID"));
+				System.out.println("Registered Student Name"+resultSet.getString("CLM_STUDNM"));
+				list.add(studentDetailsEntity);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		return list;
 	}
 }

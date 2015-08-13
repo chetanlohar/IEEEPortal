@@ -1,3 +1,4 @@
+<%@page errorPage="error"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -30,8 +31,9 @@
 				<li class="hvr-sweep-to-top"><a href="adminhome">Home</a></li>
 				<li class="hvr-sweep-to-top"><a
 					href="StudentEnquiryController?action=showenquired">Enquired</a></li>
-				<li class="hvr-sweep-to-top"><a
-					href="DomainSelection?action=selectdomain">Domains</a></li>
+				<li class="hvr-sweep-to-top" >
+					<a href="StudentRegistrationController?action=showCollegeName">Registered</a>
+				</li>
 				<li class="hvr-sweep-to-top"><a
 					href="AdminProjectAssignment?action=showData">Project
 						Assignment</a></li>

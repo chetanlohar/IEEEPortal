@@ -35,6 +35,7 @@ public class LoginDAOImpl implements LoginDAO{
 		String dbusername;
 		String dbPassword;
 		String dbrole;
+		int userId=0;
 		
 		boolean flag = false;
 		String query = "SELECT * FROM tbl_loginmst;";
@@ -50,7 +51,6 @@ public class LoginDAOImpl implements LoginDAO{
 		 dbusername = (resultset.getString("CLM_EMLID"));
 		 dbPassword = (resultset.getString("CLM_USRPASS"));
 		 dbrole = (resultset.getString("CLM_USRROLE"));
-				
 				if(username.equalsIgnoreCase(dbusername)&&password.equalsIgnoreCase(dbPassword)&&role.equalsIgnoreCase(dbrole)){
 					flag = true;
 				}

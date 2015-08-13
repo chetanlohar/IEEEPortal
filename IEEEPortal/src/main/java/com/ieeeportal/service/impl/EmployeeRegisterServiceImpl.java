@@ -23,4 +23,9 @@ public class EmployeeRegisterServiceImpl implements EmployeeRegistrationService{
 		emplist=employeeDAO.getEmployeeRecords();
 		return emplist;
 	}
+	@Override
+	public String getEmployeeName(EmployeeEntity employeeEntity) {
+		
+		return employeeDAO.getEmployeeName(employeeEntity);
+	}
 }

@@ -15,6 +15,8 @@ public class ProjectDetailEntity implements Serializable {
     private int empId;
     private int domainId;
     private String empName;
+    private Timestamp dateOfAssign;
+    private String domnm;
     
 	public String getEmpName() {
 		return empName;
@@ -23,7 +25,7 @@ public class ProjectDetailEntity implements Serializable {
 	public void setEmpName(String empName) {
 		this.empName = empName;
 	}
-	private Timestamp dateOfAssign;
+	
 
     public int getDomainId() {
 		return domainId;
@@ -91,12 +93,21 @@ public class ProjectDetailEntity implements Serializable {
 	public void setDateOfAssign(Timestamp dateOfAssign) {
 		this.dateOfAssign = dateOfAssign;
 	}
+	
+	public String getDomnm() {
+		return domnm;
+	}
+
+	public void setDomnm(String domnm) {
+		this.domnm = domnm;
+	}
+
 	@Override
 	public String toString() {
 		return "ProjectDetailEntity [prjid=" + prjid + ", prjsta=" + prjsta
 				+ ", prjyear=" + prjyear + ", prjtitle=" + prjtitle
 				+ ", prjpath=" + prjpath + ", prjtype=" + prjtype + ", prjdom="
-				+ prjdom + "]";
+				+ prjdom + ",dateOfAssign=" + dateOfAssign + ",domnm=" + domnm +"]";
 	}
    
 }

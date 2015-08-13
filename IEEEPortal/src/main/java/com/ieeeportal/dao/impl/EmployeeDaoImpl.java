@@ -394,4 +394,34 @@ public class EmployeeDaoImpl implements EmployeeDAO {
 		}
 	}
 
+	@Override
+	public String getEmployeeName(EmployeeEntity employeeEntity) {
+		String employeeName=null;
+		int userId=0;
+		ResultSet resultSet=null;
+		 
+		PreparedStatement preparedStatement=null;
+		if(connection!=null){
+			
+			userId=(Integer.parseInt(EmployeeDaoImpl.readUserId(employeeEntity)));
+			String query="select * from tbl_empdet where CLM_USRID=?";
+			try{
+			preparedStatement=connection.prepareStatement(query);
+			preparedStatement.setInt(1,userId);
+			resultSet=preparedStatement.executeQuery();
+			
+			while(resultSet.next()){
+				
+				employeeName=resultSet.getString("CLM_EMPNM");
+			}
+			
+			}catch(SQLException sqe){
+				
+				System.out.println(" Error in getEmployeeName "+sqe.getMessage());
+			}
+		}
+		
+		return employeeName;
+	}
+
 }

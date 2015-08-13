@@ -15,8 +15,8 @@ public class UpdateStudentPaymentDAOImpl implements UpdateStudentPaymentDAO
 
 	boolean res;
 	Connection  connection;
-	static double totalpaid,pendingamt,totfee;
-	PreparedStatement preparedStatement6;
+	static double totalpaid,pendingamt,totfee,lastpaid;
+	PreparedStatement preparedStatement6,preparedStatement7;
 	Statement statement;
 	ResultSet rs;
 	StudentDetailsEntity detailsEntity=new StudentDetailsEntity();
@@ -24,7 +24,7 @@ public class UpdateStudentPaymentDAOImpl implements UpdateStudentPaymentDAO
 String query1="INSERT INTO tbl_rcptdet (CLM_GRPID,CLM_EMPID,CLM_PAID) VALUES(?,?,?);";
 String query2="SELECT  CLM_TOTPAID ,CLM_TOTFEE FROM tbl_studregdet WHERE CLM_GRPID=?;";
 String query3="UPDATE tbl_studregdet SET CLM_TOTPAID=? WHERE CLM_GRPID=?";
-
+String query4="SELECT  CLM_PAID FROM tbl_rcptdet WHERE CLM_GRPID=? ORDER BY CLM_RCPTID DESC LIMIT 1";
 
 	public boolean updateStudpayment(String grpid, String empdid, String amt) {
 		try {
@@ -84,6 +84,32 @@ String query3="UPDATE tbl_studregdet SET CLM_TOTPAID=? WHERE CLM_GRPID=?";
 
 		
 		return false;
+	}
+
+
+	@Override
+	public String getLastpaid(String grpid) 
+	{
+		// TODO Auto-generated method stub
+		connection=ConnectionFactory.getConnection();
+
+		try {
+			preparedStatement7 = connection.prepareStatement(query4);
+			preparedStatement7.setInt(1, Integer.parseInt(grpid));
+			rs=preparedStatement7.executeQuery();
+			while(rs.next())
+			{
+				lastpaid=rs.getDouble(1);
+				
+			}
+		} catch (NumberFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return ""+lastpaid;
 	}
 
 }

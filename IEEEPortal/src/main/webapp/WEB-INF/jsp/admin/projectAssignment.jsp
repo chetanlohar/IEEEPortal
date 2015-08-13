@@ -1,3 +1,4 @@
+<%@page errorPage="error"%>
 <%@page import="java.util.Enumeration"%>
 <%@page import="com.ieeeportal.entity.PaperEntity"%>
 <%@page import="java.util.ArrayList"%>
@@ -148,13 +149,13 @@
 			</div>
 			<ul class="navigation">
 			     <li class="hvr-sweep-to-top"  >
-					<a href="#">Home</a>
+					<a href="adminhome">Home</a>
 				</li>
 			    <li class="hvr-sweep-to-top" >
 					<a href="StudentEnquiryController?action=showenquired">Enquired</a>
 				</li>
-				<li class="hvr-sweep-to-top">
-					<a href="DomainSelection?action=selectdomain">Domains</a>
+				<li class="hvr-sweep-to-top" >
+					<a href="StudentRegistrationController?action=showCollegeName">Registered</a>
 				</li>
 				<li class="hvr-sweep-to-top" id="active">
 					<a href="#">Project Assignment</a>
